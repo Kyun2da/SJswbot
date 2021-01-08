@@ -21,5 +21,6 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
+  console.log(process.env.PORT);
   console.log(`현재 포트 http://localhost:${port}에서 구동중입니다..`);
 });
