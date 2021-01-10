@@ -19,7 +19,7 @@ module.exports = {
     username: 'root',
     password: process.env.SEQUELIZE_PASSWORD,
     database: 'sjswbot',
-    host: '127.0.0.1',
+    host: '127.0.0.1:3306',
     dialect: 'mysql',
   },
 };
