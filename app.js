@@ -17,6 +17,9 @@ const redisClient = redis.createClient({
   password: process.env.REDIS_PASSWORD,
 });
 
+const indexRouter = require('./routes');
+const departmentRouter = require('./routes/department');
+
 const app = express();
 
 app.set('port', process.env.PORT || 8001);
@@ -54,7 +57,7 @@ const sessionOption = {
   secret: process.env.COOKIE_SECRET,
   cookie: {
     httpOnly: true,
-    secure: false,
+    secure: false, //TODO : https로 변경하면 true로 바꾸기
   },
   store: new RedisStore({ client: redisClient }),
 };
@@ -64,9 +67,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 app.use(session(sessionOption));
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.use('/', indexRouter);
+app.use('/dep', departmentRouter);
 
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
