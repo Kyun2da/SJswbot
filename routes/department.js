@@ -1,19 +1,25 @@
 const express = require('express');
-const Department = require('../Models/assistantNotice');
+const { getDepartment } = require('../Controllers/department');
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
-  try {
-    const users = await Department.findAll();
-    console.log(users);
-    res.json({
-      code: 200,
-      payload: users,
-    });
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
+/**
+ * @swagger
+ * tags:
+ *   name: 학과
+ *   description: 등록되어 있는 학과 정보
+ */
+
+/**
+ * @swagger
+ * paths:
+ *  /dep:
+ *   get:
+ *     tags: [학과]
+ *     description: '현재 등록되어 있는 학과 정보를 가져옵니다.'
+ *     responses:
+ *       200:
+ *        description: '성공'
+ */
+router.get('/', getDepartment);
 
 module.exports = router;

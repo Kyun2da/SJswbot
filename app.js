@@ -1,4 +1,6 @@
 const express = require('express');
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -45,6 +47,29 @@ if (process.env.NODE_ENV === 'production') {
   app.use(morgan('dev'));
 }
 
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'SJswbot API',
+      version: '1.0.0',
+      description: '세종대 소융봇 API 입니다.',
+      license: {
+        name: 'MIT',
+        url: 'https://spdx.org/licenses/MIT.html',
+      },
+      contact: {
+        name: 'Kyun2da',
+        url: 'https://github.com/kyun2da',
+        email: 'kyun2dot@gmail.com',
+      },
+    },
+    servers: [{ url: 'https://mfam.site' }, { url: 'http://localhost:8001/' }],
+  },
+  apis: ['./routes/*.js', './Models/*.js'],
+};
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
@@ -69,7 +94,7 @@ app.use(session(sessionOption));
 
 app.use('/', indexRouter);
 app.use('/dep', departmentRouter);
-
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs, { explorer: true }));
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
   error.status = 404;

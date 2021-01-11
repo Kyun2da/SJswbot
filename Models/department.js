@@ -1,5 +1,17 @@
 const Sequelize = require('sequelize');
 
+/**
+ * @swagger
+ *   components:
+ *       schemas:
+ *        department:
+ *         type: object
+ *         properties:
+ *           idx:
+ *             type: integer
+ *           department:
+ *             type: string
+ */
 module.exports = class Department extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
