@@ -94,7 +94,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 app.use('/', indexRouter);
 app.use('/dep', departmentRouter);
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs, { explorer: true }));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
   error.status = 404;
