@@ -47,6 +47,28 @@ if (process.env.NODE_ENV === 'production') {
   app.use(morgan('dev'));
 }
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/img', express.static(path.join(__dirname, 'uploads')));
+app.use(express.json());
+app.use(cors({ origin: true, credentials: true }));
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser(process.env.COOKIE_SECRET));
+const sessionOption = {
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false, //TODO : https로 변경하면 true로 바꾸기
+  },
+  store: new RedisStore({ client: redisClient }),
+};
+if (process.env.NODE_ENV === 'production') {
+  sessionOption.proxy = true;
+  // sessionOption.cookie.secure = true;
+}
+app.use(session(sessionOption));
+
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
@@ -69,28 +91,6 @@ const swaggerOptions = {
   apis: ['./routes/*.js', './Models/*.js'],
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/img', express.static(path.join(__dirname, 'uploads')));
-app.use(express.json());
-app.use(cors({ origin: true, credentials: true }));
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser(process.env.COOKIE_SECRET));
-const sessionOption = {
-  resave: false,
-  saveUninitialized: false,
-  secret: process.env.COOKIE_SECRET,
-  cookie: {
-    httpOnly: true,
-    secure: false, //TODO : https로 변경하면 true로 바꾸기
-  },
-  store: new RedisStore({ client: redisClient }),
-};
-if (process.env.NODE_ENV === 'production') {
-  sessionOption.proxy = true;
-  // sessionOption.cookie.secure = true;
-}
-app.use(session(sessionOption));
 
 app.use('/', indexRouter);
 app.use('/dep', departmentRouter);
