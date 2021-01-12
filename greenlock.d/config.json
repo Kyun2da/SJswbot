@@ -1,1 +1,24 @@
-{ "sites": [{ "subject": "https://sjswbot.site", "altnames": ["http://sjswbot.site/"] }] }
+{
+  "sites": [
+    {
+      "subject": "https://sjswbot.site",
+      "altnames": ["http://sjswbot.site/"],
+      "renewAt": 1
+    }
+  ],
+  "defaults": {
+    "store": {
+      "module": "greenlock-store-fs"
+    },
+    "challenges": {
+      "http-01": {
+        "module": "acme-http-01-standalone"
+      }
+    },
+    "renewOffset": "-45d",
+    "renewStagger": "3d",
+    "accountKeyType": "EC-P256",
+    "serverKeyType": "RSA-2048",
+    "subscriberEmail": "kyun2dot@gmail.com"
+  }
+}
