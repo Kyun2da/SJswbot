@@ -12,7 +12,6 @@ const hpp = require('hpp');
 const session = require('express-session');
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
-const greenlock = require('greenlock-express');
 
 dotenv.config();
 const redisClient = redis.createClient({
@@ -22,7 +21,7 @@ const redisClient = redis.createClient({
 
 const indexRouter = require('./routes');
 const departmentRouter = require('./routes/department');
-const prod = process.env.NODE_ENV === 'production';
+
 const app = express();
 
 app.set('port', process.env.PORT || 8001);
@@ -87,7 +86,7 @@ const swaggerOptions = {
         email: 'kyun2dot@gmail.com',
       },
     },
-    servers: [{ url: 'https://sjswbot.site/' }, { url: 'http://localhost:8001/' }],
+    servers: [{ url: 'http://203.250.148.27/' }, { url: 'http://localhost:8001/' }],
   },
   apis: ['./routes/*.js', './Models/*.js'],
 };
@@ -109,17 +108,6 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-if (prod) {
-  greenlock
-    .init({
-      packageRoot: __dirname,
-      configDir: '/etc/letsencrypt',
-      maintainerEmail: 'kyun2dot@gmail.com',
-      cluster: false,
-    })
-    .serve(app);
-} else {
-  app.listen(prod ? process.env.PORT : 8001, () => {
-    console.log(`server is running on ${process.env.PORT}, ${process.env.NODE_ENV}`);
-  });
-}
+app.listen(app.get('port'), () => {
+  console.log(app.get('port'), '번 포트에서 대기중');
+});
