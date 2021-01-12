@@ -87,7 +87,7 @@ const swaggerOptions = {
         email: 'kyun2dot@gmail.com',
       },
     },
-    servers: [{ url: 'http://203.250.148.27/' }, { url: 'http://localhost:8001/' }],
+    servers: [{ url: 'https://sjswbot.site/' }, { url: 'http://localhost:8001/' }],
   },
   apis: ['./routes/*.js', './Models/*.js'],
 };
