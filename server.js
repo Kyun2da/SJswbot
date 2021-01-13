@@ -8,7 +8,7 @@ if (prod) {
     .createSecureServer(
       {
         ca: fs.readFileSync('/etc/letsencrypt/live/sjswbot.site/fullchain.pem'),
-        key: fs.readFileSync('/etc/letsencrypt/live/sjswbot.site/private.pem'),
+        key: fs.readFileSync('/etc/letsencrypt/live/sjswbot.site/privkey.pem'),
         cert: fs.readFileSync('/etc/letsencrypt/live/sjswbot.site/cert.pem'),
       },
       (req, res) => {
