@@ -12,7 +12,6 @@ const hpp = require('hpp');
 const session = require('express-session');
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
-const greenlock = require('greenlock-express');
 
 dotenv.config();
 const redisClient = redis.createClient({
@@ -22,7 +21,6 @@ const redisClient = redis.createClient({
 
 const indexRouter = require('./routes');
 const departmentRouter = require('./routes/department');
-const prod = process.env.NODE_ENV === 'production';
 const app = express();
 
 app.set('port', process.env.PORT || 8001);
@@ -42,8 +40,8 @@ sequelize
 // morgan 설정
 if (process.env.NODE_ENV === 'production') {
   app.use(morgan('combined'));
-  //app.use(helmet()); //swagger 때문에 없앰
-  // app.use(hpp());
+  app.use(helmet()); //swagger 때문에 없앰
+  app.use(hpp());
 } else {
   app.use(morgan('dev'));
 }
@@ -109,17 +107,4 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-if (prod) {
-  greenlock
-    .init({
-      packageRoot: __dirname,
-      configDir: '/etc/letsencrypt',
-      maintainerEmail: 'kyun2dot@gmail.com',
-      cluster: true,
-    })
-    .serve(app);
-} else {
-  app.listen(prod ? process.env.PORT : 8001, () => {
-    console.log(`server is running on ${process.env.PORT}, ${process.env.NODE_ENV}`);
-  });
-}
+module.exports = app;
