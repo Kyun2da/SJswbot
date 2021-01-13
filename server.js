@@ -1,5 +1,5 @@
 const app = require('./app');
-const http2 = require('http2');
+const https = require('https');
 const fs = require('fs');
 const prod = process.env.NODE_ENV === 'production';
 
@@ -10,7 +10,7 @@ const options = {
 };
 
 if (prod) {
-  http2.createSecureServer(options, app).listen(443, () => {
+  https.createSecureServer(options, app).listen(443, () => {
     console.log('443번 포트에서 대기중입니다.');
   });
 } else {
