@@ -58,13 +58,13 @@ const sessionOption = {
   secret: process.env.COOKIE_SECRET,
   cookie: {
     httpOnly: true,
-    secure: false, //TODO : https로 변경하면 true로 바꾸기
+    secure: true,
   },
   store: new RedisStore({ client: redisClient }),
 };
 if (process.env.NODE_ENV === 'production') {
   sessionOption.proxy = true;
-  // sessionOption.cookie.secure = true;
+  sessionOption.cookie.secure = true;
 }
 app.use(session(sessionOption));
 
