@@ -1,5 +1,6 @@
 const app = require('./app');
 const http2 = require('http2');
+const fs = require('fs');
 const prod = process.env.NODE_ENV === 'production';
 
 if (prod) {
