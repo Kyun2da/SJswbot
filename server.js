@@ -10,7 +10,7 @@ const options = {
 };
 
 if (prod) {
-  https.createSecureServer(options, app).listen(443, () => {
+  https.createServer(options, app).listen(443, () => {
     console.log('443번 포트에서 대기중입니다.');
   });
 } else {
