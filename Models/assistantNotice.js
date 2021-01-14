@@ -14,11 +14,6 @@ module.exports = class AssistantNotice extends Sequelize.Model {
           type: Sequelize.TEXT,
           allowNull: true,
         },
-        modifier: {
-          type: Sequelize.STRING(45),
-          allowNull: false,
-          defaultValue: 'admin',
-        },
         created_at: {
           type: Sequelize.DATE,
           allowNull: false,
@@ -40,6 +35,10 @@ module.exports = class AssistantNotice extends Sequelize.Model {
   static associate(db) {
     db.AssistantNotice.belongsTo(db.Department, {
       foreignKey: 'department',
+      targetKey: 'idx',
+    });
+    db.AssistantNotice.belongsTo(db.User, {
+      foreignKey: 'modifier',
       targetKey: 'idx',
     });
   }

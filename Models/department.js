@@ -9,8 +9,10 @@ const Sequelize = require('sequelize');
  *         properties:
  *           idx:
  *             type: integer
+ *             description: 학과의 인덱스 입니다.
  *           department:
  *             type: string
+ *             description: 학과의 학과정보입니다.
  */
 module.exports = class Department extends Sequelize.Model {
   static init(sequelize) {
@@ -41,6 +43,10 @@ module.exports = class Department extends Sequelize.Model {
     );
   }
   static associate(db) {
-    db.Department.hasOne(db.AssistantNotice, { foreignKey: 'department', sourceKey: 'idx' });
+    db.Department.hasMany(db.AssistantNotice, { foreignKey: 'department', sourceKey: 'idx' });
+    db.Department.hasMany(db.User, { foreignKey: 'department', sourceKey: 'idx' });
+    db.Department.hasMany(db.Question, { foreignKey: 'department', sourceKey: 'idx' });
+    db.Department.hasMany(db.Notice, { foreignKey: 'department', sourceKey: 'idx' });
+    db.Department.hasMany(db.Curriculum, { foreignKey: 'department', sourceKey: 'idx' });
   }
 };
