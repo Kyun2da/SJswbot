@@ -4,7 +4,6 @@ const swaggerUI = require('swagger-ui-express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cors = require('cors');
-const { sequelize } = require('./Models');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const helmet = require('helmet');
@@ -12,6 +11,8 @@ const hpp = require('hpp');
 const session = require('express-session');
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
+const { sequelize } = require('./Models');
+/// const passportConfig = require('./passport');
 
 dotenv.config();
 const redisClient = redis.createClient({
@@ -19,9 +20,12 @@ const redisClient = redis.createClient({
   password: process.env.REDIS_PASSWORD,
 });
 
-const indexRouter = require('./routes');
-const departmentRouter = require('./routes/department');
+const indexRouter = require('./Routes');
+const authRouter = require('./Routes/auth');
+const departmentRouter = require('./Routes/department');
+
 const app = express();
+// passportConfig();
 
 app.set('port', process.env.PORT || 8001);
 app.set('views', path.join(__dirname, 'views'));
@@ -40,7 +44,7 @@ sequelize
 // morgan 설정
 if (process.env.NODE_ENV === 'production') {
   app.use(morgan('combined'));
-  app.use(helmet()); //swagger 때문에 없앰
+  app.use(helmet()); // swagger 때문에 없앰
   app.use(hpp());
 } else {
   app.use(morgan('dev'));
@@ -67,6 +71,8 @@ if (process.env.NODE_ENV === 'production') {
   sessionOption.cookie.secure = true;
 }
 app.use(session(sessionOption));
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 const swaggerOptions = {
   swaggerDefinition: {
@@ -93,17 +99,23 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 app.use('/', indexRouter);
 app.use('/dep', departmentRouter);
+app.use('/auth', authRouter);
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+
+// 지정된 url이 없을 경우 일로옴
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
   error.status = 404;
   next(error);
 });
 
-app.use((err, req, res, next) => {
+// error handler
+app.use((err, req, res) => {
   res.locals.message = err.message;
   res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
-  res.status(err.status || 500);
+  res
+    .status(err.status || 500)
+    .send({ msg: err.status === 500 ? '서버 에러입니다. 관리자에게 문의하세요.' : err.message });
   res.render('error');
 });
 
