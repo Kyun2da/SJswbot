@@ -117,5 +117,9 @@ module.exports = class User extends Sequelize.Model {
       foreignKey: 'modifier',
       sourceKey: 'idx',
     });
+    db.User.hasMany(db.KnowledgePlus, {
+      foreignKey: 'modifier',
+      sourceKey: 'idx',
+    });
   }
 };

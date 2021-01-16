@@ -1,5 +1,28 @@
 const Sequelize = require('sequelize');
 
+/**
+ * @swagger
+ *   components:
+ *       schemas:
+ *        AssistantNotice:
+ *         type: object
+ *         properties:
+ *           idx:
+ *             type: integer
+ *             description : 조교공지의 인덱스 입니다.
+ *           department:
+ *             type: string
+ *             description: 조교공지의 학과 입니다.
+ *           content:
+ *             type: text
+ *             description: 조교공지의 내용 입니다.
+ *           time:
+ *             type: datetime
+ *             description: 등록 or 수정한 시간이 들어갑니다.
+ *           modifier:
+ *             type: integer
+ *             description: 수정한 사람의 인덱스가 들어갑니다.
+ */
 module.exports = class AssistantNotice extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
@@ -12,11 +35,9 @@ module.exports = class AssistantNotice extends Sequelize.Model {
         },
         content: {
           type: Sequelize.TEXT,
-          allowNull: true,
         },
-        created_at: {
+        time: {
           type: Sequelize.DATE,
-          allowNull: false,
           defaultValue: Sequelize.NOW,
         },
       },

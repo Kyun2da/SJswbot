@@ -76,6 +76,9 @@ module.exports = class KnowledgePlus extends Sequelize.Model {
         imageinfo: {
           type: Sequelize.TEXT,
         },
+        time: {
+          type: Sequelize.DATE,
+        },
       },
       {
         sequelize,
@@ -88,5 +91,8 @@ module.exports = class KnowledgePlus extends Sequelize.Model {
         collate: 'utf8_general_ci',
       },
     );
+  }
+  static associate(db) {
+    db.KnowledgePlus.belongsTo(db.User, { foreignKey: 'modifier', targetKey: 'idx' });
   }
 };
