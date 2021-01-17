@@ -53,6 +53,7 @@ module.exports = class AssistantNotice extends Sequelize.Model {
       },
     );
   }
+
   static associate(db) {
     db.AssistantNotice.belongsTo(db.Department, {
       foreignKey: 'department',

@@ -92,6 +92,7 @@ module.exports = class KnowledgePlus extends Sequelize.Model {
       },
     );
   }
+
   static associate(db) {
     db.KnowledgePlus.belongsTo(db.User, { foreignKey: 'modifier', targetKey: 'idx' });
   }

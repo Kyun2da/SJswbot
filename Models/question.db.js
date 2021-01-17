@@ -50,6 +50,7 @@ module.exports = class Question extends Sequelize.Model {
       },
     );
   }
+
   static associate(db) {
     db.Question.belongsTo(db.Department, {
       foreignKey: 'department',

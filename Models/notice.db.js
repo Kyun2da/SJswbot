@@ -52,6 +52,7 @@ module.exports = class Notice extends Sequelize.Model {
       },
     );
   }
+
   static associate(db) {
     db.Notice.belongsTo(db.Department, { foreignKey: 'department', targetKey: 'idx' });
     db.Notice.belongsTo(db.User, { foreignKey: 'modifier', targetKey: 'idx' });

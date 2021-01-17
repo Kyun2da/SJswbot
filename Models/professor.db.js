@@ -58,6 +58,7 @@ module.exports = class Professor extends Sequelize.Model {
       },
     );
   }
+
   static associate(db) {
     db.Professor.belongsTo(db.User, {
       foreignKey: 'modifier',

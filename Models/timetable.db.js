@@ -57,6 +57,7 @@ module.exports = class Timetable extends Sequelize.Model {
       },
     );
   }
+
   static associate(db) {
     db.Timetable.belongsTo(db.User, { foreignKey: 'modifier', targetKey: 'idx' });
   }

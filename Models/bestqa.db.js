@@ -49,6 +49,7 @@ module.exports = class Bestqa extends Sequelize.Model {
       },
     );
   }
+
   static associate(db) {
     db.Bestqa.belongsTo(db.User, { foreignKey: 'modifier', targetKey: 'idx' });
   }

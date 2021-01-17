@@ -51,6 +51,7 @@ module.exports = class Curriculum extends Sequelize.Model {
       },
     );
   }
+
   static associate(db) {
     db.Curriculum.belongsTo(db.Department, { foreignKey: 'department', targetKey: 'idx' });
     db.Curriculum.belongsTo(db.User, { foreignKey: 'modifier', targetKey: 'idx' });

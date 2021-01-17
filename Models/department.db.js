@@ -42,6 +42,7 @@ module.exports = class Department extends Sequelize.Model {
       },
     );
   }
+
   static associate(db) {
     db.Department.hasMany(db.AssistantNotice, { foreignKey: 'department', sourceKey: 'idx' });
     db.Department.hasMany(db.User, { foreignKey: 'department', sourceKey: 'idx' });

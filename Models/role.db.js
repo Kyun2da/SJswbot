@@ -43,6 +43,7 @@ module.exports = class Role extends Sequelize.Model {
       },
     );
   }
+
   static associate(db) {
     db.Role.hasMany(db.User, { foreignKey: 'role', sourceKey: 'idx' });
   }
