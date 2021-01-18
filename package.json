@@ -21,6 +21,7 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
+    "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "crypto-random-string": "^3.3.0",
     "dotenv": "^8.2.0",

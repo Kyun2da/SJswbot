@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const helmet = require('helmet');
 const hpp = require('hpp');
-const session = require('express-session');
+const session = require('cookie-session');
 const { sequelize } = require('./models');
 
 dotenv.config();
