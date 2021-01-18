@@ -192,7 +192,7 @@ paths:
                 result:
                   [
                     {
-                      'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJodWd1bjEyMzQ1IiwiaWF0IjoxNjEwOTQ5NjU0MDU2LCJleHAiOjE2MTA5NTAyNTg4NTZ9.FpRu9TwSRugqaMxSvYPSpFXiiCBHs5CvD2ty5dXStS0',
+                      'token': 'Bearer ...',
                       'expiresIn': '1d',
                       'user': 'kyun2da',
                       'department': 1,
@@ -271,7 +271,7 @@ paths:
                 result:
                   [
                     {
-                      'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJodWd1bjEyMzQ1IiwiaWF0IjoxNjEwOTQ5NjU0MDU2LCJleHAiOjE2MTA5NTAyNTg4NTZ9.FpRu9TwSRugqaMxSvYPSpFXiiCBHs5CvD2ty5dXStS0',
+                      'token': 'Bearer ...',
                       'expiresIn': '1d',
                       'user': 'kyun2da',
                       'department': 1,
