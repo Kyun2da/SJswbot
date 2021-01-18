@@ -1,6 +1,7 @@
-const app = require('./app');
 const https = require('https');
 const fs = require('fs');
+const app = require('./app');
+
 const prod = process.env.NODE_ENV === 'production';
 
 if (prod) {
