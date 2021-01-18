@@ -1,0 +1,294 @@
+tags:
+  - name: 인증
+    description: 로그인이나 회원가입을 진행하는 api입니다.
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - 인증
+      summary: 회원가입 진행 api입니다.
+      description: '회원가입을 진행하기 위해 필요한 api 입니다.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userid:
+                  type: string
+                username:
+                  type: string
+                password:
+                  type: string
+                phoneNumber:
+                  type: string
+                email:
+                  type: string
+                department:
+                  type: number
+              example: # Sample object
+                userid: 'kyun2da'
+                username: '허균'
+                password: 1234
+                phoneNumber: '010-1111-2222'
+                email: 'kyun2dot@gmail.com'
+                department: 1
+      responses:
+        201:
+          description: 회원가입에 성공했을 때 201을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: 성공적으로 회원가입이 완료되었습니다.
+        400:
+          description: params가 하나라도 없거나 조건을 만족하지 않으면 400을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: false
+                message: '파라미터 에러입니다.'
+                result: [{ 'location': 'body', 'message': 'Invalid value', 'param': 'username' }]
+        409:
+          description: 이미 존재하는 아이디라면 409를 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: '이미 존재하는 아이디 입니다.'
+        500:
+          description: 회원가입을 진행중에 서버에서 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: '서버 에러입니다. 관리자에게 문의하세요.'
+
+  /auth/idCheck:
+    post:
+      tags:
+        - 인증
+      summary: id가 이미 있는 아이디인지 체크합니다.
+      description: 아이디를 responseBody로 넘겨서 확인합니다.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userid:
+                  type: string
+              example: # Sample object
+                userid: kyun2da
+      responses:
+        200:
+          description: 사용 가능한 아이디 일때 200을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: '사용 가능한 id 입니다.'
+        409:
+          description: 이미 존재하는 아이디라면 409를 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 이미 사용중인 아이디 입니다.
+        500:
+          description: 아이디 체크 진행중에 서버에서 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
+  /auth/login:
+    post:
+      tags:
+        - 인증
+      summary: 로그인할때 필요한 api 입니다.
+      description: requestBody로 userid와 password가 필요합니다.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userid:
+                  type: string
+                password:
+                  type: string
+              example: # Sample object
+                userid: kyun2da
+                password: 123456
+      responses:
+        200:
+          description: 로그인에 성공했을 때 200을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: true
+                message: '로그인에 성공하였습니다.'
+                result:
+                  [
+                    {
+                      'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJodWd1bjEyMzQ1IiwiaWF0IjoxNjEwOTQ5NjU0MDU2LCJleHAiOjE2MTA5NTAyNTg4NTZ9.FpRu9TwSRugqaMxSvYPSpFXiiCBHs5CvD2ty5dXStS0',
+                      'expiresIn': '1d',
+                      'user': 'kyun2da',
+                      'department': 1,
+                      'role': 1,
+                    },
+                  ]
+        400:
+          description: 로그인을 위한 requestBody가 하나라도 없다면 400을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: false
+                message: 파라미터 에러입니다.
+                result: [{ 'msg': 'Invalid value', 'param': 'password', 'location': 'body' }]
+        401:
+          description: 아이디가 없거나 아이디에 맞는 패스워드가 다르다면 401을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 유저를 찾을 수 없습니다.
+        500:
+          description: 로그인을 진행중에 서버에서 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
+
+  /auth/check:
+    get:
+      tags:
+        - 인증
+      summary: 현재 로그인 중인지를 체크하는 api입니다. 헤더에 토큰을 넣어야 합니다.
+      description: 현재 로그인 중인지 확인합니다.
+      responses:
+        200:
+          description: 현재 로그인중이라면 200을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: true
+                message: 현재 로그인 상태입니다.
+                result:
+                  [
+                    {
+                      'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJodWd1bjEyMzQ1IiwiaWF0IjoxNjEwOTQ5NjU0MDU2LCJleHAiOjE2MTA5NTAyNTg4NTZ9.FpRu9TwSRugqaMxSvYPSpFXiiCBHs5CvD2ty5dXStS0',
+                      'expiresIn': '1d',
+                      'user': 'kyun2da',
+                      'department': 1,
+                      'role': 1,
+                    },
+                  ]
+        401:
+          description: 토큰이 없거나 유효하지 않다면 401을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  success:
+                    type: boolean
+              example:
+                success: false
+                message: '토큰이 타당하지 않습니다.'
