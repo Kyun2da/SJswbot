@@ -12,6 +12,8 @@ const signUpValidationRules = [
 
 const loginValidationRules = [body('userid').exists(), body('password').exists()];
 
+const idCheckValidationRules = [body('userid').exists()];
+
 module.exports = {
   isLoggedIn: (req, res, next) => {
     try {
@@ -27,3 +29,4 @@ module.exports = {
 
 module.exports.signUpValidationRules = signUpValidationRules;
 module.exports.loginValidationRules = loginValidationRules;
+module.exports.idCheckValidationRules = idCheckValidationRules;
