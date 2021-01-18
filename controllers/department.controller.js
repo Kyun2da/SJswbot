@@ -1,19 +1,16 @@
-const { Department } = require('../Models');
+const { Department } = require('../models');
 
 const getDepartment = async (req, res, next) => {
   try {
     const users = await Department.findAll({ order: [['idx', 'ASC']] });
     console.log(users);
-    res.status(200).json({
-      code: 200,
-      payload: users,
+    return res.status(200).json({
+      success: true,
+      result: users,
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({
-      code: 500,
-      message: '서버 에러입니다. 관리자에게 문의해주세요.',
-    });
+    return next(err);
   }
 };
 
