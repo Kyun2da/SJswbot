@@ -1,0 +1,136 @@
+tags:
+  - name: 메일
+    description: 이메일 인증을 받기위한 api 입니다.
+paths:
+  /mail/send:
+    post:
+      tags:
+        - 메일
+      summary: 인증번호를 받을 이메일을 보내 인증번호를 요청합니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                to:
+                  type: string
+              required:
+                - to
+              example: # Sample object
+                to: 'https://www.goole.com'
+      responses:
+        201:
+          description: 이메일을 보내는 것을 성공하면 201을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: '성공적으로 메시지를 보냈습니다.'
+        400:
+          description: 인증 메일 보내기를 위한 requestBody가 하나라도 없다면 400을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: false
+                message: 파라미터 에러입니다.
+                result: [{ 'msg': 'Invalid value', 'param': 'to', 'location': 'body' }]
+        500:
+          description: 로그인을 진행중에 서버에서 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
+  /mail/verify:
+    post:
+      tags:
+        - 메일
+      summary: 인증번호를 통해 인증을 합니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                authNumber:
+                  type: number
+              required:
+                - email
+                - authNumber
+              example: # Sample object
+                email: 'https://www.goole.com'
+                authNumber: 110234
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: 이메일 인증에 성공하였습니다.
+        400:
+          description: 이메일 인증을 위한 requestBody가 하나라도 없다면 400을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: false
+                message: 파라미터 에러입니다.
+                result: [{ 'msg': 'Invalid value', 'param': 'password', 'location': 'body' }]
+        500:
+          description: 로그인을 진행중에 서버에서 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
