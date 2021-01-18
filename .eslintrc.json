@@ -23,6 +23,7 @@
     "node/prefer-promises/dns": "error",
     "node/prefer-promises/fs": "error",
     "object-curly-newline": 0,
+    "implicit-arrow-linebreak": 0,
     "no-console": 0 // 최종 배포때는 체크 해제 후 console.log 다 지우자
   }
 }
