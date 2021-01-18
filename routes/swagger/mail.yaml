@@ -53,7 +53,7 @@ paths:
                 message: 파라미터 에러입니다.
                 result: [{ 'msg': 'Invalid value', 'param': 'to', 'location': 'body' }]
         500:
-          description: 로그인을 진행중에 서버에서 에러가 난다면 500을 반환합니다.
+          description: 인증 메일 보내기를 진행중에 서버에서 에러가 난다면 500을 반환합니다.
           content:
             application/json:
               schema:
@@ -121,7 +121,7 @@ paths:
                 message: 파라미터 에러입니다.
                 result: [{ 'msg': 'Invalid value', 'param': 'password', 'location': 'body' }]
         500:
-          description: 로그인을 진행중에 서버에서 에러가 난다면 500을 반환합니다.
+          description: 메일 인증 진행중에 서버에서 에러가 난다면 500을 반환합니다.
           content:
             application/json:
               schema:

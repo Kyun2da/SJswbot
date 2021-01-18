@@ -1,0 +1,50 @@
+tags:
+  - name: 학과
+    description: db에 등록되어 있는 학과정보 입니다.
+paths:
+  /dep:
+    get:
+      tags:
+        - 학과
+      summary: 인증번호를 받을 이메일을 보내 인증번호를 요청합니다.
+      responses:
+        200:
+          description: 등록되어있는 학과 db 정보를 가져옵니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: true
+                message: '성공적으로 학과를 가져왔습니다.'
+                result:
+                  [
+                    { 'idx': 1, 'department': '컴퓨터공학과' },
+                    { 'idx': 2, 'department': '소프트웨어학과' },
+                    { 'idx': 3, 'department': '정보보호학과' },
+                    { 'idx': 4, 'department': '데이터사이언스학과' },
+                    { 'idx': 5, 'department': '지능기전공학부' },
+                    { 'idx': 6, 'department': '창의소프트학부' },
+                    { 'idx': 7, 'department': '인공지능학과' },
+                  ]
+        500:
+          description: db를 가져오는 작업 진행중에 서버에서 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
