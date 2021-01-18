@@ -1,6 +1,5 @@
 const express = require('express');
-const swaggerJsDoc = require('swagger-jsdoc');
-const swaggerUI = require('swagger-ui-express');
+
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -9,23 +8,16 @@ const path = require('path');
 const helmet = require('helmet');
 const hpp = require('hpp');
 const session = require('express-session');
-const redis = require('redis');
-const RedisStore = require('connect-redis')(session);
-const { sequelize } = require('./Models');
-/// const passportConfig = require('./passport');
+const { sequelize } = require('./models');
 
 dotenv.config();
-const redisClient = redis.createClient({
-  url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
-  password: process.env.REDIS_PASSWORD,
-});
 
-const indexRouter = require('./Routes');
-const authRouter = require('./Routes/auth');
-const departmentRouter = require('./Routes/department');
+const indexRouter = require('./routes');
+const authRouter = require('./routes/auth');
+const departmentRouter = require('./routes/department');
+const swaggerDoc = require('./swaggerDoc');
 
 const app = express();
-// passportConfig();
 
 app.set('port', process.env.PORT || 8001);
 app.set('views', path.join(__dirname, 'views'));
@@ -56,6 +48,7 @@ app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
+
 const sessionOption = {
   resave: false,
   saveUninitialized: false,
@@ -64,43 +57,16 @@ const sessionOption = {
     httpOnly: true,
     secure: true,
   },
-  store: new RedisStore({ client: redisClient }),
 };
 if (process.env.NODE_ENV === 'production') {
   sessionOption.proxy = true;
   sessionOption.cookie.secure = true;
 }
 app.use(session(sessionOption));
-// app.use(passport.initialize());
-// app.use(passport.session());
-
-const swaggerOptions = {
-  swaggerDefinition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'SJswbot API',
-      version: '1.0.0',
-      description: '세종대 소융봇 API 입니다.',
-      license: {
-        name: 'MIT',
-        url: 'https://spdx.org/licenses/MIT.html',
-      },
-      contact: {
-        name: 'Kyun2da',
-        url: 'https://github.com/kyun2da',
-        email: 'kyun2dot@gmail.com',
-      },
-    },
-    servers: [{ url: 'https://sjswbot.site' }, { url: 'http://localhost:8001/' }],
-  },
-  apis: ['./routes/*.js', './Models/*.js'],
-};
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-
 app.use('/', indexRouter);
 app.use('/dep', departmentRouter);
 app.use('/auth', authRouter);
-app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+app.use(swaggerDoc);
 
 // 지정된 url이 없을 경우 일로옴
 app.use((req, res, next) => {
@@ -113,10 +79,9 @@ app.use((req, res, next) => {
 app.use((err, req, res) => {
   res.locals.message = err.message;
   res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
-  res
-    .status(err.status || 500)
-    .send({ msg: err.status === 500 ? '서버 에러입니다. 관리자에게 문의하세요.' : err.message });
-  res.render('error');
+  return res
+    .status(500)
+    .send({ success: false, message: '서버 에러입니다. 관리자에게 문의하세요.' });
 });
 
 module.exports = app;
