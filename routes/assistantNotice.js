@@ -1,8 +1,14 @@
 const express = require('express');
-const { getAssistantNotice } = require('../controllers/assistantNotice.controller');
+const {
+  getAssistantNotice,
+  putAssistantNotice,
+} = require('../controllers/assistantNotice.controller');
+const { isLoggedIn } = require('../middleware/validation/auth');
 
 const router = express.Router();
 
-router.get('/', getAssistantNotice);
+router.get('/:department', isLoggedIn, getAssistantNotice);
+
+router.put('/:department', isLoggedIn, putAssistantNotice);
 
 module.exports = router;

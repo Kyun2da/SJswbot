@@ -1,6 +1,7 @@
+const sequelize = require('sequelize');
 const { AssistantNotice, User } = require('../models');
 
-const getAssistantNotice = async (req, res) => {
+const getAssistantNotice = async (req, res, next) => {
   const { department } = req.params;
   try {
     const notice = await AssistantNotice.findOne({
@@ -12,7 +13,6 @@ const getAssistantNotice = async (req, res) => {
         },
       ],
     });
-    console.log(notice);
     return res.status(200).send({
       message: '성공적으로 완료되었습니다.',
       success: true,
@@ -20,13 +20,33 @@ const getAssistantNotice = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).send({
-      message: 'db에러입니다. 관리자에게 문의해주세요.',
-      success: false,
+    return next(err);
+  }
+};
+
+const putAssistantNotice = async (req, res, next) => {
+  const { department } = req.params;
+  const { content } = req.body;
+  try {
+    const putNotice = await AssistantNotice.update(
+      {
+        content,
+        updatedAt: sequelize.fn('NOW'),
+        modifier: req.userData.sub,
+      },
+      { where: { department } },
+    );
+    return res.status(200).send({
+      message: '성공적으로 완료되었습니다.',
+      success: putNotice,
     });
+  } catch (err) {
+    console.error(err);
+    return next(err);
   }
 };
 
 module.exports = {
   getAssistantNotice,
+  putAssistantNotice,
 };

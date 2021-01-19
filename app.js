@@ -16,6 +16,7 @@ const indexRouter = require('./routes');
 const authRouter = require('./routes/auth');
 const departmentRouter = require('./routes/department');
 const mailRouter = require('./routes/mail');
+const assistantNoticeRouter = require('./routes/assistantNotice');
 const swaggerDoc = require('./swaggerDoc');
 
 const app = express();
@@ -68,6 +69,7 @@ app.use('/', indexRouter);
 app.use('/dep', departmentRouter);
 app.use('/auth', authRouter);
 app.use('/mail', mailRouter);
+app.use('/assistantNotice', assistantNoticeRouter);
 app.use(swaggerDoc);
 
 // 지정된 url이 없을 경우 일로옴
