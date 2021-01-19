@@ -23,7 +23,7 @@ const signUp = async (req, res, next) => {
       phoneNumber,
       email,
       department,
-      role: 1,
+      role: 2, // 무조건 조교로 가입, 관리자는 따로 db로 설정
     });
     return res.status(201).send({ success: true, msg: '성공적으로 회원가입이 완료되었습니다.' });
   } catch (error) {
