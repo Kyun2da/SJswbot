@@ -1,0 +1,144 @@
+tags:
+  - name: 조교 공지
+    description: 학과별 조교들끼리 공유하는 공지사항을 관리하는 api입니다.
+paths:
+  /assistantNotice/{department}:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - 조교 공지
+      summary: 특정 학과의 조교들끼리 공유할 공지사항을 가져옵니다.
+      description: 특정 학과의 조교들끼리 공유할 공지사항을 가져옵니다.
+      parameters:
+        - name: department
+          in: path
+          description: ex) 1,2,3,4,5,6,7 ... 번호별 학과는 department api 참조
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: 조교들의 공유사항인 해당학과 공지사항을 가져오는데 성공합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: object
+              example:
+                success: true
+                message: 성공적으로 공지사항을 가져왔습니다.
+                result:
+                  {
+                    'idx': 1,
+                    'content': '공지입니다.',
+                    'createdAt': '2021-01-19T00:00:00.000Z',
+                    'updatedAt': '2021-01-19T08:29:18.000Z',
+                    'department': 1,
+                    'modifier': 2,
+                    'User': { 'username': 'kyun2da' },
+                  }
+        401:
+          description: jwt 토큰 인증 에러입니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 토큰이 타당하지 않습니다.
+        500:
+        description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                message:
+                  type: string
+            example:
+              success: false
+              message: 서버 에러입니다. 관리자에게 문의하세요.
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - 조교 공지
+      summary: 특정 학과의 조교들끼리 공유할 공지사항을 수정합니다.
+      description: 특정 학과의 조교들끼리 공유할 공지사항을 수정합니다.
+      parameters:
+        - name: department
+          in: path
+          description: ex) 1,2,3,4,5,6,7 ... 번호별 학과는 department api 참조
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+              required:
+                - content
+              example: # Sample object
+                content: '소프트웨어 조교님들 수정된 공지사항 내용입니다 ...'
+      responses:
+        200:
+          description: 조교들의 공유사항인 해당학과 공지사항을 가져오는데 성공합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: 성공적으로 공지사항을 수정하였습니다.
+        401:
+          description: jwt 토큰 인증 에러입니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 토큰이 타당하지 않습니다.
+        500:
+        description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                message:
+                  type: string
+            example:
+              success: false
+              message: 서버 에러입니다. 관리자에게 문의하세요.

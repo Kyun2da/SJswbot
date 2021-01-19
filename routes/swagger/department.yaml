@@ -6,7 +6,7 @@ paths:
     get:
       tags:
         - 학과
-      summary: 인증번호를 받을 이메일을 보내 인증번호를 요청합니다.
+      summary: 등록되어있는 학과 정보를 가져옵니다.
       responses:
         200:
           description: 등록되어있는 학과 db 정보를 가져옵니다.

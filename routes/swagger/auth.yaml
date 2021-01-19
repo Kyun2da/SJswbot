@@ -1,6 +1,12 @@
 tags:
   - name: 인증
     description: 로그인이나 회원가입을 진행하는 api입니다.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 paths:
   /auth/signup:
     post:
@@ -95,7 +101,7 @@ paths:
                 message: '서버 에러입니다. 관리자에게 문의하세요.'
 
   /auth/idCheck:
-    post:
+    get:
       tags:
         - 인증
       summary: id가 이미 있는 아이디인지 체크합니다.
@@ -247,6 +253,8 @@ paths:
 
   /auth/check:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - 인증
       summary: 현재 로그인 중인지를 체크하는 api입니다. 헤더에 토큰을 넣어야 합니다.
