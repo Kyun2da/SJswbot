@@ -14,8 +14,8 @@ const getAssistantNotice = async (req, res, next) => {
       ],
     });
     return res.status(200).send({
-      message: '성공적으로 완료되었습니다.',
       success: true,
+      message: '성공적으로 공지사항을 가져왔습니다.',
       result: notice,
     });
   } catch (err) {
@@ -28,7 +28,7 @@ const putAssistantNotice = async (req, res, next) => {
   const { department } = req.params;
   const { content } = req.body;
   try {
-    const putNotice = await AssistantNotice.update(
+    await AssistantNotice.update(
       {
         content,
         updatedAt: sequelize.fn('NOW'),
@@ -37,8 +37,8 @@ const putAssistantNotice = async (req, res, next) => {
       { where: { department } },
     );
     return res.status(200).send({
-      message: '성공적으로 완료되었습니다.',
-      success: putNotice,
+      success: true,
+      message: '성공적으로 공지사항을 수정하였습니다.',
     });
   } catch (err) {
     console.error(err);
