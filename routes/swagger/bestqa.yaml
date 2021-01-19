@@ -1,0 +1,159 @@
+tags:
+  - name: 자주묻는질문
+    description: 가장 많이 묻는 질문 Top3를 가져오는 api 입니다.
+paths:
+  /bestqa:
+    get:
+      tags:
+        - 자주묻는질문
+      summary: 가장 많이 묻는 질문을 전부 가져옵니다.
+      description: 가장 많이 묻는 질문을 전부 가져옵니다.
+      responses:
+        200:
+          description: 자주묻는 질문 db를 전부 가져오는데 성공합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: true
+                message: 성공적으로 공지사항을 수정하였습니다.
+                result:
+                  [
+                    {
+                      'idx': 1,
+                      'question': '질문 수정하기',
+                      'createdAt': '2021-01-19T00:00:00.000Z',
+                      'updatedAt': '2021-01-19T13:52:26.000Z',
+                      'modifier': 2,
+                      'User': { 'username': 'admin' },
+                    },
+                    {
+                      'idx': 2,
+                      'question': '자주묻는질문2입니다',
+                      'createdAt': '2021-01-19T00:00:00.000Z',
+                      'updatedAt': '2021-01-19T00:00:00.000Z',
+                      'modifier': 2,
+                      'User': { 'username': 'admin' },
+                    },
+                    {
+                      'idx': 3,
+                      'question': '자주묻는질문3입니다.',
+                      'createdAt': '2021-01-19T00:00:00.000Z',
+                      'updatedAt': '2021-01-19T00:00:00.000Z',
+                      'modifier': 2,
+                      'User': { 'username': 'admin' },
+                    },
+                  ]
+        500:
+        description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                message:
+                  type: string
+            example:
+              success: false
+              message: 서버 에러입니다. 관리자에게 문의하세요.
+    post:
+      tags:
+        - 자주묻는질문
+      summary: 카카오 챗봇 전용 post
+      description: 카카오 챗봇 전용api입니다.
+      responses:
+        200:
+          description: OK
+          content: {}
+  /bestqa/{id}:
+    get:
+      tags:
+        - 자주묻는질문
+      summary: 특정 순위의 가장 많이 묻는 질문을 가져옵니다.
+      description: 현재 3순위 까지 가져올 수 있습니다.
+      parameters:
+        - name: id
+          in: path
+          description: 1, 2, 3 중 한개 선택
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 특정 자주묻는 질문 db를 가져오는데 성공합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: object
+              example:
+                success: true
+                message: 성공적으로 자주묻는 질문을 가져왔습니다.
+                result:
+                  {
+                    'idx': 2,
+                    'question': '자주묻는질문2입니다',
+                    'createdAt': '2021-01-19T00:00:00.000Z',
+                    'updatedAt': '2021-01-19T00:00:00.000Z',
+                    'modifier': 2,
+                    'User': { 'username': 'admin' },
+                  }
+        500:
+        description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                message:
+                  type: string
+            example:
+              success: false
+              message: 서버 에러입니다. 관리자에게 문의하세요.
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - 자주묻는질문
+      summary: 특정 순위의 가장 많이 묻는 질문을 수정합니다.
+      description: 현재 3순위 까지 수정이 가능합니다.
+      parameters:
+        - name: id
+          in: path
+          description: 1, 2, 3 중 한개 선택
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+              example: # Sample object
+                question: '선택적 패스제도가 뭔가요?'
+                modifier: 관리자
+      responses:
+        200:
+          description: OK
+          content: {}
