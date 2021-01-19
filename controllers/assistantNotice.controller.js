@@ -1,8 +1,17 @@
-const { AssistantNotice } = require('../models');
+const { AssistantNotice, User } = require('../models');
 
 const getAssistantNotice = async (req, res) => {
+  const { department } = req.params;
   try {
-    const notice = await AssistantNotice.findAll({ order: [['idx', 'ASC']] });
+    const notice = await AssistantNotice.findOne({
+      where: { department },
+      include: [
+        {
+          model: User,
+          attributes: ['username'],
+        },
+      ],
+    });
     console.log(notice);
     return res.status(200).send({
       message: '성공적으로 완료되었습니다.',
