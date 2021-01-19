@@ -13,9 +13,12 @@ const Sequelize = require('sequelize');
  *           question:
  *             type: text
  *             description: 폴백 블록의 대화입니다.
- *           time:
+ *           createdAt:
  *             type: datetime
- *             description: 폴백 블록이 등록된 시간입니다.
+ *             description: 등록한 시간이 들어갑니다.
+ *           updatedAt:
+ *             type: datetime
+ *             description: 수정한 시간이 들어갑니다.
  */
 module.exports = class Fallback extends Sequelize.Model {
   static init(sequelize) {
@@ -31,13 +34,10 @@ module.exports = class Fallback extends Sequelize.Model {
           type: Sequelize.TEXT,
           allowNull: false,
         },
-        time: {
-          type: Sequelize.DATE,
-        },
       },
       {
         sequelize,
-        timestamps: false,
+        timestamps: true,
         underscored: false,
         modelName: 'Fallback',
         tableName: 'fallback',

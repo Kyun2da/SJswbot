@@ -16,9 +16,12 @@ const Sequelize = require('sequelize');
  *           link:
  *             type: text
  *             description: 교과과정의 링크입니다.
- *           time:
+ *           createdAt:
  *             type: datetime
- *             description: 교과과정을 등록하거나 수정한 시간입니다.
+ *             description: 등록한 시간이 들어갑니다.
+ *           updatedAt:
+ *             type: datetime
+ *             description: 수정한 시간이 들어갑니다.
  *           modifier:
  *             type: integer
  */
@@ -35,13 +38,10 @@ module.exports = class Curriculum extends Sequelize.Model {
         link: {
           type: Sequelize.TEXT,
         },
-        time: {
-          type: Sequelize.DATE,
-        },
       },
       {
         sequelize,
-        timestamps: false,
+        timestamps: true,
         underscored: false,
         modelName: 'Curriculum',
         tableName: 'Curriculum',

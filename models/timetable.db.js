@@ -16,9 +16,12 @@ const Sequelize = require('sequelize');
  *           link:
  *             type: string
  *             description:  강의실 시간표 링크입니다.
- *           time:
+ *           createdAt:
  *             type: datetime
- *             description: 강의실 시간표를 등록하거나 수정한 시간입니다.
+ *             description: 등록한 시간이 들어갑니다.
+ *           updatedAt:
+ *             type: datetime
+ *             description: 수정한 시간이 들어갑니다.
  *           modifier:
  *             type: integer
  *             description: 강의실 시간표를 수정한 사람의 인덱스입니다.
@@ -41,13 +44,10 @@ module.exports = class Timetable extends Sequelize.Model {
         link: {
           type: Sequelize.STRING(255),
         },
-        time: {
-          type: Sequelize.DATE,
-        },
       },
       {
         sequelize,
-        timestamps: false,
+        timestamps: true,
         underscored: false,
         modelName: 'Timetable',
         tableName: 'timetable',

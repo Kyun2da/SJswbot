@@ -13,9 +13,12 @@ const Sequelize = require('sequelize');
  *           question:
  *             type: string
  *             description: 자주묻는 질문 내용이 들어갑니다.
- *           time:
+ *           createdAt:
  *             type: datetime
- *             description: 등록 or 수정한 시간이 들어갑니다.
+ *             description: 등록한 시간이 들어갑니다.
+ *           updatedAt:
+ *             type: datetime
+ *             description: 수정한 시간이 들어갑니다.
  *           modifier:
  *             type: integer
  *             description: 수정한 사람의 인덱스가 들어갑니다.
@@ -33,13 +36,10 @@ module.exports = class Bestqa extends Sequelize.Model {
         question: {
           type: Sequelize.TEXT,
         },
-        time: {
-          type: Sequelize.DATE,
-        },
       },
       {
         sequelize,
-        timestamps: false,
+        timestamps: true,
         underscored: false,
         modelName: 'Bestqa',
         tableName: 'bestqa',

@@ -16,9 +16,12 @@ const Sequelize = require('sequelize');
  *           link:
  *            type: text
  *            description: 공지사항의 링크입니다.
- *           time:
- *            type: datetime
- *            description: 공지사항을 등록하거나 수정한 시간입니다.
+ *           createdAt:
+ *             type: datetime
+ *             description: 등록한 시간이 들어갑니다.
+ *           updatedAt:
+ *             type: datetime
+ *             description: 수정한 시간이 들어갑니다.
  *           modifier:
  *            type: integer
  *            description: 공지사항을 수정하거나 등록한사람의 인덱스입니다.
@@ -36,13 +39,10 @@ module.exports = class Notice extends Sequelize.Model {
         link: {
           type: Sequelize.TEXT,
         },
-        time: {
-          type: Sequelize.DATE,
-        },
       },
       {
         sequelize,
-        timestamps: false,
+        timestamps: true,
         underscored: false,
         modelName: 'Notice',
         tableName: 'notice',

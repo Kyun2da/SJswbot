@@ -16,9 +16,12 @@ const Sequelize = require('sequelize');
  *           content:
  *             type: text
  *             description: 질문한 내용이 들어옵니다.
- *           time:
+ *           createdAt:
  *             type: datetime
- *             description: 질문한 시간이 들어옵니다.
+ *             description: 등록한 시간이 들어갑니다.
+ *           updatedAt:
+ *             type: datetime
+ *             description: 수정한 시간이 들어갑니다.
  *
  */
 module.exports = class Question extends Sequelize.Model {
@@ -34,13 +37,10 @@ module.exports = class Question extends Sequelize.Model {
         content: {
           type: Sequelize.TEXT,
         },
-        time: {
-          type: Sequelize.DATE,
-        },
       },
       {
         sequelize,
-        timestamps: false,
+        timestamps: true,
         underscored: false,
         modelName: 'Question',
         tableName: 'question',

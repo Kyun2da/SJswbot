@@ -67,10 +67,6 @@ module.exports = class User extends Sequelize.Model {
           type: Sequelize.STRING(100),
           allowNull: false,
         },
-        lastLogin: {
-          type: Sequelize.DATE,
-          defaultValue: Sequelize.NOW,
-        },
       },
       {
         sequelize,
