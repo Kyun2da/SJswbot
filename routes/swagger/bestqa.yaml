@@ -66,6 +66,7 @@ paths:
             example:
               success: false
               message: 서버 에러입니다. 관리자에게 문의하세요.
+  /bestqa/kakao:
     post:
       tags:
         - 자주묻는질문
