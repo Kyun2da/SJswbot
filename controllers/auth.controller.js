@@ -95,6 +95,7 @@ const check = async (req, res, next) => {
         userid: Sequelize.fn('lower', req.userData.sub),
       },
     });
+    console.log(existUser);
     const tokenObject = utils.issueJWT(existUser);
     return res.status(200).send({
       success: true,
