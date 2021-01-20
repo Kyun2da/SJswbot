@@ -88,14 +88,12 @@ const login = async (req, res, next) => {
 };
 
 const check = async (req, res, next) => {
-  console.log(req.userData);
   try {
     const existUser = await User.findOne({
       where: {
-        userid: Sequelize.fn('lower', req.userData.sub),
+        idx: Sequelize.fn('lower', req.userData.sub),
       },
     });
-    console.log(existUser);
     const tokenObject = utils.issueJWT(existUser);
     return res.status(200).send({
       success: true,
