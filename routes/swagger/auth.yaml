@@ -101,7 +101,7 @@ paths:
                 message: '서버 에러입니다. 관리자에게 문의하세요.'
 
   /auth/idCheck:
-    get:
+    post:
       tags:
         - 인증
       summary: id가 이미 있는 아이디인지 체크합니다.

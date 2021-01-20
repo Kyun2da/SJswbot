@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post('/signup', validate(signUpValidationRules), signUp);
 
-router.get('/idCheck', validate(idCheckValidationRules), idCheck);
+router.post('/idCheck', validate(idCheckValidationRules), idCheck);
 
 router.post('/login', validate(loginValidationRules), login);
 
