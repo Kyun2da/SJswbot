@@ -81,6 +81,64 @@ paths:
                         },
                       ],
                   }
+        500:
+        description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                message:
+                  type: string
+            example:
+              success: false
+              message: 서버 에러입니다. 관리자에게 문의하세요.
+  /fallback/{id}:
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - 폴백
+      summary: 폴백 블록으로 들어온 특정 데이터를 삭제합니다.
+      description: 폴백 블록으로 들어온 데이터를 삭제합니다. page * size + 1번 부터 size개 만큼 가져옵니다.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: 지울 인덱스 번호 입니다.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: 성공적으로 삭제되었습니다.
+        500:
+        description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                message:
+                  type: string
+            example:
+              success: false
+              message: 서버 에러입니다. 관리자에게 문의하세요.
   /fallback/kakao:
     post:
       tags:

@@ -24,6 +24,19 @@ const getFallback = async (req, res, next) => {
   }
 };
 
+const deleteFallback = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    await Fallback.destroy({
+      where: { idx: id },
+    });
+    return res.status(200).send({ success: true, message: '성공적으로 삭제되었습니다.' });
+  } catch (err) {
+    console.error(err);
+    return next(err);
+  }
+};
+
 const kakaoFallback = async (req, res) => {
   const { utterance } = req.body.userRequest;
 
@@ -44,4 +57,5 @@ const kakaoFallback = async (req, res) => {
 module.exports = {
   getFallback,
   kakaoFallback,
+  deleteFallback,
 };
