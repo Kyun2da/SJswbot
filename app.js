@@ -20,6 +20,7 @@ const assistantNoticeRouter = require('./routes/assistantNotice');
 const bestqaRouter = require('./routes/bestqa');
 const fallbackRouter = require('./routes/fallback');
 const statusRouter = require('./routes/status');
+const curriculumRouter = require('./routes/curriculum');
 const swaggerDoc = require('./swaggerDoc');
 
 const app = express();
@@ -76,6 +77,7 @@ app.use('/assistantNotice', assistantNoticeRouter);
 app.use('/bestqa', bestqaRouter);
 app.use('/fallback', fallbackRouter);
 app.use('/status', statusRouter);
+app.use('/curriculum', curriculumRouter);
 app.use(swaggerDoc);
 
 // 지정된 url이 없을 경우 일로옴
