@@ -118,5 +118,9 @@ module.exports = class User extends Sequelize.Model {
       foreignKey: 'modifier',
       sourceKey: 'idx',
     });
+    db.User.hasMany(db.Status, {
+      foreignKey: 'modifier',
+      sourceKey: 'idx',
+    });
   }
 };

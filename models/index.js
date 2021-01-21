@@ -12,6 +12,7 @@ const Timetable = require('./timetable.db');
 const Notice = require('./notice.db');
 const Curriculum = require('./curriculum.db');
 const EmailVerify = require('./emailVerify.db');
+const Status = require('./status.db');
 
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
@@ -35,6 +36,7 @@ db.Timetable = Timetable;
 db.Notice = Notice;
 db.Curriculum = Curriculum;
 db.EmailVerify = EmailVerify;
+db.Status = Status;
 
 AssistantNotice.init(sequelize);
 Department.init(sequelize);
@@ -49,6 +51,7 @@ Timetable.init(sequelize);
 Notice.init(sequelize);
 Curriculum.init(sequelize);
 EmailVerify.init(sequelize);
+Status.init(sequelize);
 
 AssistantNotice.associate(db);
 Department.associate(db);
@@ -60,5 +63,6 @@ Bestqa.associate(db);
 Timetable.associate(db);
 Notice.associate(db);
 Curriculum.associate(db);
+Status.associate(db);
 
 module.exports = db;
