@@ -1,5 +1,5 @@
 const sequelize = require('sequelize');
-const { kakaoBestqaTemplate } = require('../lib/kakao/bestqa');
+const { kakaoBestqaTemplate } = require('../lib/kakao/bestqaTemplate');
 const { Bestqa, User } = require('../models');
 
 const getBestqa = async (req, res, next) => {
