@@ -18,6 +18,7 @@ const getStatus = async (req, res, next) => {
 const kakaoStatus = async (req, res, next) => {
   try {
     const { name } = req.body.intent;
+    console.log(req.body);
     const statusData = await Status.findOne({ where: { department: name } });
     return res.status(200).send(kakaoStatusTemplate(statusData));
   } catch (err) {
