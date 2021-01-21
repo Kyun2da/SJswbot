@@ -1,0 +1,147 @@
+tags:
+  - name: 조교실 부재여부
+    description: 조교의 부재상태를 가져오는 api 입니다.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /status/kakao:
+    post:
+      tags:
+        - 조교실 부재여부
+      summary: 카카오 챗봇 전용 post
+      description: 카카오 챗봇 전용api입니다.
+      responses:
+        200:
+          description: OK
+          content: {}
+  /status/{department}:
+    get:
+      tags:
+        - 조교실 부재여부
+      summary: 특정 학과 조교의 부재여부를 가져옵니다.
+      description: 학과 9개중 하나의 정보를 입력합니다.
+      parameters:
+        - name: department
+          in: path
+          description: 1,2,3,4,5,6,7 ... 숫자에 대한 정보는 dep api 참조
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: object
+              example:
+                success: true
+                message: 성공적으로 Status를 가져왔습니다.
+                result:
+                  {
+                    'idx': 1,
+                    'status': 1,
+                    'comment': 'ㅎㅇ',
+                    'createdAt': '2021-01-21T00:00:00.000Z',
+                    'updatedAt': '2021-01-21T00:00:00.000Z',
+                    'department': 1,
+                    'modifier': 2,
+                  }
+        500:
+          description: 데이터를 가져오는 도중 서버에서 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - 조교실 부재여부
+      summary: 특정 학과 조교의 부재여부와 코멘트를 수정합니다.
+      description: 학과 9개중 하나의 정보를 입력하고 Request body엔 status와 comment를 넣습니다.
+      parameters:
+        - name: department
+          in: path
+          description: 1,2,3,4,5,6,7 ... 숫자에 대한 정보는 dep api 참조
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: number
+                comment:
+                  type: string
+              example: # Sample object
+                status: 3
+                comment: '조교 1월부터 12월까지 휴가중입니다.'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: 성공적으로 수정을 완료하였습니다.
+        400:
+          description: status수정을 위한 requestBody가 하나라도 없다면 400을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: false
+                message: 파라미터 에러입니다.
+                result: [{ 'msg': 'Invalid value', 'param': 'comment', 'location': 'body' }]
+        500:
+          description: status를 수정하던중에 서버에서 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
