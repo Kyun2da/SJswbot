@@ -1,12 +1,20 @@
 const sequelize = require('sequelize');
 const { kakaoStatusTemplate } = require('../lib/kakao/statusTemplate');
 const { departmentParser } = require('../lib/kakaoDepartmentParser');
-const { Status } = require('../models');
+const { Status, User } = require('../models');
 
 const getStatus = async (req, res, next) => {
   try {
     const { department } = req.params;
-    const statusData = await Status.findOne({ where: { department } });
+    const statusData = await Status.findOne({
+      where: { department },
+      include: [
+        {
+          model: User,
+          attributes: ['username'],
+        },
+      ],
+    });
     return res
       .status(200)
       .send({ success: true, message: '성공적으로 Status를 가져왔습니다.', result: statusData });

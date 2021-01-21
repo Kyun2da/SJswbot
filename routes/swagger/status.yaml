@@ -57,6 +57,7 @@ paths:
                     'updatedAt': '2021-01-21T00:00:00.000Z',
                     'department': 1,
                     'modifier': 2,
+                    'User': { 'username': 'admin' },
                   }
         500:
           description: 데이터를 가져오는 도중 서버에서 에러가 난다면 500을 반환합니다.
