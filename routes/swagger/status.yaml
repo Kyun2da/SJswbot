@@ -94,10 +94,16 @@ paths:
               properties:
                 status:
                   type: number
+                position:
+                  type: string
+                phoneNumber:
+                  type: string
                 comment:
                   type: string
               example: # Sample object
                 status: 3
+                position: b112호
+                phoneNumber: 010-1111-1111
                 comment: '조교 1월부터 12월까지 휴가중입니다.'
       responses:
         200:

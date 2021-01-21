@@ -17,6 +17,12 @@ const Sequelize = require('sequelize');
  *           department:
  *             type: integer
  *             description: 학과의 인덱스 입니다.
+ *           position:
+ *             type: string
+ *             description: 학과사무실의 위치입니다.
+ *           phoneNumber:
+ *             type: string
+ *             description: 학과사무실의 전화번호입니다.
  *           createdAt:
  *             type: DATETIME
  *             description: 데이터가 추가된 시간입니다.
@@ -43,6 +49,12 @@ module.exports = class Status extends Sequelize.Model {
         },
         comment: {
           type: Sequelize.TEXT,
+        },
+        position: {
+          type: Sequelize.STRING(100),
+        },
+        phoneNumber: {
+          type: Sequelize.STRING(100),
         },
       },
       {

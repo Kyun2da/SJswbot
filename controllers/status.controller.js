@@ -31,11 +31,13 @@ const putStatus = async (req, res, next) => {
   try {
     const { department } = req.params;
     console.log(department);
-    const { status, comment } = req.body;
+    const { status, comment, position, phoneNumber } = req.body;
     await Status.update(
       {
         status,
         comment,
+        position,
+        phoneNumber,
         updatedAt: sequelize.fn('NOW'),
         modifier: req.userData.sub,
       },
