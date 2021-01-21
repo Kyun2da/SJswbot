@@ -30,9 +30,12 @@ paths:
                     { 'idx': 2, 'department': '소프트웨어학과' },
                     { 'idx': 3, 'department': '정보보호학과' },
                     { 'idx': 4, 'department': '데이터사이언스학과' },
-                    { 'idx': 5, 'department': '지능기전공학부' },
-                    { 'idx': 6, 'department': '창의소프트학부' },
-                    { 'idx': 7, 'department': '인공지능학과' },
+                    { 'idx': 5, 'department': '디자인이노베이션' },
+                    { 'idx': 6, 'department': '만화애니메이션텍' },
+                    { 'idx': 7, 'department': '스마트기기공학전공' },
+                    { 'idx': 8, 'department': '무인이동체공학전공' },
+                    { 'idx': 9, 'department': '인공지능학과' },
+                    { 'idx': 10, 'department': '관리자' },
                   ]
         500:
           description: db를 가져오는 작업 진행중에 서버에서 에러가 난다면 500을 반환합니다.
