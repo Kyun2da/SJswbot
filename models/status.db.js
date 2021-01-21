@@ -41,6 +41,9 @@ module.exports = class Status extends Sequelize.Model {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
+        comment: {
+          type: Sequelize.TEXT,
+        },
       },
       {
         sequelize,
