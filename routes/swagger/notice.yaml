@@ -1,0 +1,147 @@
+tags:
+  - name: 공지사항
+    description: 학과 공지사항을 가져오는 api 입니다.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /notice/kakao:
+    post:
+      tags:
+        - 공지사항
+      summary: 카카오 챗봇 전용 post
+      description: 카카오 챗봇 전용api입니다.
+      responses:
+        200:
+          description: OK
+          content: {}
+  /notice/{department}:
+    get:
+      tags:
+        - 공지사항
+      summary: 특정 학과의 공지사항을 가져옵니다.
+      description: 특정 학과의 공지사항을 가져옵니다.
+      parameters:
+        - name: department
+          in: path
+          description: 1,2,3,4,5,6,7 ... 숫자에 대한 정보는 dep api 참조
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: object
+              example:
+                success: true
+                message: 성공적으로 공지사항을 가져왔습니다.
+                result:
+                  {
+                    'idx': 1,
+                    'link': 'https://daum.net',
+                    'createdAt': '2021-01-21T00:00:00.000Z',
+                    'updatedAt': '2021-01-21T13:44:12.000Z',
+                    'department': 1,
+                    'modifier': 2,
+                    'User': { 'username': 'admin' },
+                  }
+        500:
+          description: 서버에서 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - 공지사항
+      summary: 특정 학과의 공지사항을 수정합니다.
+      description: 특정 학과의 공지사항을 수정합니다.
+      parameters:
+        - name: department
+          in: path
+          description: 1,2,3,4,5,6,7 ... 숫자에 대한 정보는 dep api 참조
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                link:
+                  type: string
+              required:
+                - link
+              example: # Sample object
+                link: 'https://www.goole.com'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: 성공적으로 수정이 완료되었습니다.
+        400:
+          description: curriculum 수정을 위한 requestBody가 하나라도 없다면 400을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: false
+                message: 파라미터 에러입니다.
+                result: [{ 'msg': 'Invalid value', 'param': 'link', 'location': 'body' }]
+        500:
+          description: 공지사항 데이터를 수정하던중에 서버에서 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
