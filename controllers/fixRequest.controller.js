@@ -1,8 +1,8 @@
 const sequelize = require('sequelize');
 const {
-  fallbackFailEnrollTemplate,
-  fallbackCompleteEnrollTemplate,
-} = require('../lib/kakao/fallbackTemplate');
+  kakaoFixRequestTemplate,
+  kakaoFixRequestfailEnrollTemplate,
+} = require('../lib/kakao/fixRequestTemplate');
 const getPagination = require('../lib/pagination');
 const { FixRequest } = require('../models');
 
@@ -38,19 +38,19 @@ const deleteFixRequest = async (req, res, next) => {
 };
 
 const kakaoFixRequest = async (req, res) => {
-  const { utterance } = req.body.userRequest;
+  const reqData = req.body.action.params['질문'];
 
   try {
     await FixRequest.create({
-      question: utterance,
+      question: reqData,
       createdAt: sequelize.fn('NOW'),
       updatedAt: sequelize.fn('NOW'),
     });
 
-    return res.status(201).send(fallbackCompleteEnrollTemplate);
+    return res.status(201).send(kakaoFixRequestTemplate);
   } catch (err) {
     console.error(err);
-    return res.status(500).send(fallbackFailEnrollTemplate);
+    return res.status(500).send(kakaoFixRequestfailEnrollTemplate);
   }
 };
 
