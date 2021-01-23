@@ -1,0 +1,311 @@
+tags:
+  - name: 교수님 정보
+    description: 교수님 연구실의 정보를 가져오는 api 입니다.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /professor:
+    get:
+      tags:
+        - 교수님 정보
+      summary: 모든 교수님 연구실의 정보를 가져옵니다.
+      description: 모든 교수님 연구실의 정보를 가져옵니다.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: 가져올 페이지 입니다. 0페이지부터 시작합니다. 0페이지라면 0번부터 가져옵니다.
+        - in: query
+          name: size
+          schema:
+            type: integer
+          description: 가져올 아이템의 개수입니다.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: true
+                message: 성공적으로 교수님 데이터를 가져왔습니다.
+                result:
+                  {
+                    'count': 6,
+                    'rows':
+                      [
+                        {
+                          'idx': 1,
+                          'name': '허균',
+                          'class': 'B12',
+                          'phoneNumber': '010-1111-1111',
+                          'email': 'kyun2dot@gmail.com',
+                          'createdAt': '2021-01-23T00:00:00.000Z',
+                          'updatedAt': '2021-01-23T00:00:00.000Z',
+                          'modifier': 2,
+                          'User': { 'username': 'admin' },
+                        },
+                        {
+                          'idx': 2,
+                          'name': '양효식',
+                          'class': 'B12',
+                          'phoneNumber': '010-1111-1111',
+                          'email': 'kyun2dot@gmail.com',
+                          'createdAt': '2021-01-23T00:00:00.000Z',
+                          'updatedAt': '2021-01-23T00:00:00.000Z',
+                          'modifier': 2,
+                          'User': { 'username': 'admin' },
+                        },
+                        {
+                          'idx': 3,
+                          'name': '아티크',
+                          'class': 'B12',
+                          'phoneNumber': '010-1111-1111',
+                          'email': 'kyun2dot@gmail.com',
+                          'createdAt': '2021-01-23T00:00:00.000Z',
+                          'updatedAt': '2021-01-23T00:00:00.000Z',
+                          'modifier': 2,
+                          'User': { 'username': 'admin' },
+                        },
+                        {
+                          'idx': 4,
+                          'name': '이종민',
+                          'class': 'B12',
+                          'phoneNumber': '010-1111-1111',
+                          'email': 'kyun2dot@gmail.com',
+                          'createdAt': '2021-01-23T00:00:00.000Z',
+                          'updatedAt': '2021-01-23T00:00:00.000Z',
+                          'modifier': 2,
+                          'User': { 'username': 'admin' },
+                        },
+                        {
+                          'idx': 5,
+                          'name': '문준호',
+                          'class': 'B12',
+                          'phoneNumber': '010-1111-1111',
+                          'email': 'kyun2dot@gmail.com',
+                          'createdAt': '2021-01-23T00:00:00.000Z',
+                          'updatedAt': '2021-01-23T00:00:00.000Z',
+                          'modifier': 2,
+                          'User': { 'username': 'admin' },
+                        },
+                      ],
+                  }
+        500:
+          description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - 교수님 정보
+      summary: 새로운 교수님을 등록합니다.
+      description: 새로운 교수님을 등록할 때 쓰는 api 입니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                classPosition:
+                  type: string
+                phoneNumber:
+                  type: string
+                email:
+                  type: string
+              required:
+                - name
+                - classPosition
+                - phoneNumber
+                - email
+              example: # Sample object
+                name: '새로운 사람이름'
+                classPosition: '센B442'
+                phoneNumber: '02)1111-1111'
+                email: 'kyun2dot@gmail.com'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: 성공적으로 교수님 데이터를 등록하였습니다.
+        500:
+          description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
+  /professor/kakao:
+    post:
+      tags:
+        - 교수님 정보
+      summary: 카카오 챗봇 전용 post
+      description: 카카오 챗봇 전용api입니다.
+      responses:
+        200:
+          description: OK
+          content: {}
+  /professor/{name}:
+    get:
+      tags:
+        - 교수님 정보
+      summary: 특정 교수님의 정보를 가져옵니다.
+      description: 특정 교수님의 정보를 가져옵니다.
+      parameters:
+        - name: name
+          in: path
+          description: ex) 박상일, 김원일 ...
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: true
+                message: 성공적으로 교수님 데이터를 가져왔습니다.
+                result:
+                  {
+                    'idx': 1,
+                    'name': '허균',
+                    'classPosition': 'B12',
+                    'phoneNumber': '010-1111-1111',
+                    'email': 'kyun2dot@gmail.com',
+                    'createdAt': '2021-01-23T00:00:00.000Z',
+                    'updatedAt': '2021-01-23T00:00:00.000Z',
+                    'modifier': 2,
+                    'User': { 'username': 'admin' },
+                  }
+        500:
+          description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - 교수님 정보
+      summary: 특정 교수님의 정보를 수정합니다.
+      description: 특정 교수님의 강의실 이름과 정보를 가져옵니다.
+      parameters:
+        - name: name
+          in: path
+          description: ex) 박상일, 김원일 ...
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                classPosition:
+                  type: string
+                phoneNumber:
+                  type: string
+                email:
+                  type: string
+              required:
+                - classPosition
+                - phoneNumber
+                - email
+              example: # Sample object
+                classPosition: '센B442'
+                phoneNumber: '02)1111-1111'
+                email: 'kyun2dot@gmail.com'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: 성공적으로 교수님 데이터를 가져왔습니다.
+        500:
+          description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
