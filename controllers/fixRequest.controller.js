@@ -13,7 +13,7 @@ const getFixRequest = async (req, res, next) => {
 
   try {
     const getFixRequestData = await FixRequest.findAndCountAll({ offset, limit });
-    return res.send({
+    return res.status(200).send({
       success: true,
       message: '성공적으로 수정요청 데이터를 가져왔습니다.',
       result: getFixRequestData,

@@ -13,7 +13,7 @@ const getFallback = async (req, res, next) => {
 
   try {
     const getFallbackData = await Fallback.findAndCountAll({ offset, limit });
-    return res.send({
+    return res.status(200).send({
       success: true,
       message: '성공적으로 폴백 데이터를 가져왔습니다.',
       result: getFallbackData,
