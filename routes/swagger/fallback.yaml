@@ -82,19 +82,19 @@ paths:
                       ],
                   }
         500:
-        description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                success:
-                  type: boolean
-                message:
-                  type: string
-            example:
-              success: false
-              message: 서버 에러입니다. 관리자에게 문의하세요.
+          description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
   /fallback/{id}:
     delete:
       security:
@@ -126,19 +126,19 @@ paths:
                 success: true
                 message: 성공적으로 삭제되었습니다.
         500:
-        description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                success:
-                  type: boolean
-                message:
-                  type: string
-            example:
-              success: false
-              message: 서버 에러입니다. 관리자에게 문의하세요.
+          description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
   /fallback/kakao:
     post:
       tags:
