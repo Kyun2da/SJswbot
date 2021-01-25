@@ -12,7 +12,6 @@ const getParameterProfessor = async (req, res, next) => {
     if (getProfessorData === null) {
       return res.status(200).send({
         status: 'FAIL',
-        message: '요청하신 교수님의 이름이 존재하지 않습니다.',
       });
     }
     return res.status(200).send({
