@@ -2,8 +2,8 @@ const { Professor } = require('../models');
 
 const getParameterProfessor = async (req, res, next) => {
   try {
-    console.log(req.body);
-    const name = req.body.action.params['교수님'];
+    console.log(req.body.utterance);
+    const name = req.body.utterance;
     console.log(name);
     const getProfessorData = await Professor.findOne({
       where: { name },
