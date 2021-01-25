@@ -309,3 +309,46 @@ paths:
               example:
                 success: false
                 message: 서버 에러입니다. 관리자에게 문의하세요.
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - 교수님 정보
+      summary: 특정 교수님의 정보를 삭제합니다.
+      description: 특정 교수님의 강의실 이름과 정보를 삭제합니다.
+      parameters:
+        - name: name
+          in: path
+          description: ex) 박상일, 김원일 ...
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: 성공적으로 교수님 정보를 삭제하였습니다.
+        500:
+          description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.

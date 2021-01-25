@@ -116,10 +116,24 @@ const putProfessor = async (req, res, next) => {
   }
 };
 
+const deleteProfessor = async (req, res, next) => {
+  try {
+    const { name } = req.params;
+    await Professor.destroy({ where: { name } });
+    return res
+      .status(200)
+      .send({ success: true, message: '성공적으로 교수님 정보를 삭제하였습니다.' });
+  } catch (err) {
+    console.error(err);
+    return next(err);
+  }
+};
+
 module.exports = {
   getProfessor,
   getParticularProfessor,
   kakaoProfessor,
   postProfessor,
   putProfessor,
+  deleteProfessor,
 };

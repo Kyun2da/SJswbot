@@ -5,6 +5,7 @@ const {
   kakaoProfessor,
   postProfessor,
   putProfessor,
+  deleteProfessor,
 } = require('../controllers/professor.controller');
 const { validate } = require('../middleware/validation');
 const { isLoggedIn } = require('../middleware/validation/auth');
@@ -21,5 +22,7 @@ router.post('/kakao', kakaoProfessor);
 router.post('/', isLoggedIn, validate(postProfessorRules), postProfessor);
 
 router.put('/:name', isLoggedIn, validate(putProfessorRules), putProfessor);
+
+router.delete('/:name', isLoggedIn, deleteProfessor);
 
 module.exports = router;
