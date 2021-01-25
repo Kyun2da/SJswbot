@@ -25,6 +25,7 @@ const noticeRouter = require('./routes/notice');
 const fixRequestRouter = require('./routes/fixrequest');
 const professorRouter = require('./routes/professor');
 const kakaoParamterRouter = require('./routes/kakaoParameter');
+const timetableRouter = require('./routes/timetable');
 const swaggerDoc = require('./swaggerDoc');
 
 const app = express();
@@ -86,6 +87,7 @@ app.use('/notice', noticeRouter);
 app.use('/fixRequest', fixRequestRouter);
 app.use('/professor', professorRouter);
 app.use('/kakaoParameter', kakaoParamterRouter);
+app.use('/timetable', timetableRouter);
 app.use(swaggerDoc);
 
 // 지정된 url이 없을 경우 일로옴

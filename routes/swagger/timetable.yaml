@@ -1,0 +1,221 @@
+tags:
+  - name: 강의실 시간표
+    description: 강의실 시간표에 관한 api 입니다.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /timetable/kakao:
+    post:
+      tags:
+        - 강의실 시간표
+      summary: 카카오 챗봇 전용 post
+      description: 카카오 챗봇 전용api입니다.
+      responses:
+        200:
+          description: OK
+          content: {}
+  /timetable/{classname}:
+    get:
+      tags:
+        - 강의실 시간표
+      summary: 특정 강의실의 시간표를 가져옵니다.
+      description: 특정 강의실의 시간표를 가져옵니다.
+      parameters:
+        - name: classname
+          in: path
+          description: 시간표가 등록되어있는 강의실 이름중 하나를 입력합니다.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: object
+              example:
+                success: true
+                message: 성공적으로 시간표를 가져왔습니다.
+                result:
+                  {
+                    'idx': 9,
+                    'classname': '센B112',
+                    'link': '/img/KakaoTalk_20201129_2245297911611585627666.png',
+                    'createdAt': '2021-01-25T14:40:27.000Z',
+                    'updatedAt': '2021-01-25T14:40:27.000Z',
+                    'modifier': 2,
+                    'User': { 'username': 'admin' },
+                  }
+        500:
+          description: 데이터를 가져오는 도중 서버에서 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - 강의실 시간표
+      summary: 특정 강의실의 시간표를 등록합니다.
+      description: 특정 강의실의 시간표를 등록합니다.
+      parameters:
+        - name: classname
+          in: path
+          description: 시간표가 등록되어있지 않은 강의실 이름중 하나를 입력합니다.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                img:
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: 성공적으로 시간표가 등록되었습니다.
+        500:
+          description: 데이터를 가져오는 도중 서버에서 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - 강의실 시간표
+      summary: 특정 강의실 시간표 사진을 수정합니다.
+      description: 특정 강의실 시간표를 수정합니다.
+      parameters:
+        - name: classname
+          in: path
+          description: 강의실 시간표가 등록되어있는 강의실이름중 하나를 넣습니다.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                img:
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: 성공적으로 수정을 완료하였습니다.
+        500:
+          description: 시간표를 수정하던중에 서버에서 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - 강의실 시간표
+      summary: 특정 강의실 시간표 사진을 삭제합니다.
+      description: 특정 강의실 시간표를 삭제합니다.
+      parameters:
+        - name: classname
+          in: path
+          description: 강의실 시간표가 등록되어있는 강의실이름중 하나를 넣습니다.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: 성공적으로 시간표를 삭제하였습니다.
+        500:
+          description: 시간표를 수정하던중에 서버에서 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
