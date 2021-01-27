@@ -29,6 +29,23 @@ const getProfessor = async (req, res, next) => {
   }
 };
 
+const getProfessorList = async (req, res, next) => {
+  try {
+    const getProfessorListData = await Professor.findAll({
+      attributes: ['name'],
+      order: [['name', 'ASC']],
+    });
+    return res.status(200).send({
+      success: true,
+      message: '성공적으로 교수님 목록을 가져왔습니다.',
+      result: getProfessorListData,
+    });
+  } catch (err) {
+    console.error(err);
+    return next(err);
+  }
+};
+
 const getParticularProfessor = async (req, res, next) => {
   try {
     const { name } = req.params;
@@ -131,6 +148,7 @@ const deleteProfessor = async (req, res, next) => {
 
 module.exports = {
   getProfessor,
+  getProfessorList,
   getParticularProfessor,
   kakaoProfessor,
   postProfessor,

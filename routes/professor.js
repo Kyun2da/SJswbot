@@ -1,6 +1,7 @@
 const express = require('express');
 const {
   getProfessor,
+  getProfessorList,
   getParticularProfessor,
   kakaoProfessor,
   postProfessor,
@@ -14,6 +15,8 @@ const { postProfessorRules, putProfessorRules } = require('../middleware/validat
 const router = express.Router();
 
 router.get('/', getProfessor);
+
+router.get('/list', getProfessorList);
 
 router.get('/:name', getParticularProfessor);
 

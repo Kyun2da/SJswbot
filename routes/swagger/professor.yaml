@@ -189,6 +189,51 @@ paths:
         200:
           description: OK
           content: {}
+  /professor/list:
+    get:
+      tags:
+        - 교수님 정보
+      summary: 교수님 이름 목록을 가져옵니다.
+      description: 교수님 이름 목록을 가져옵니다.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: true
+                message: 성공적으로 교수님 목록을 가져왔습니다.
+                result:
+                  [
+                    { 'name': '문준호' },
+                    { 'name': '아티크' },
+                    { 'name': '양효식' },
+                    { 'name': '이종민' },
+                    { 'name': '홍준황' },
+                  ]
+        500:
+          description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
   /professor/{name}:
     get:
       tags:
