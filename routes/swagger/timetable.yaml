@@ -18,6 +18,52 @@ paths:
         200:
           description: OK
           content: {}
+  /timetable/list:
+    get:
+      tags:
+        - 강의실 시간표
+      summary: 시간표가 등록되어있는 강의실 목록을 가져옵니다.
+      description: 시간표가 등록되어있는 강의실 목록을 가져옵니다.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: true
+                message: 성공적으로 시간표가 있는 강의실 목록을 가져왔습니다.
+                result:
+                  [
+                    { 'classname': 'good' },
+                    { 'classname': 'good2' },
+                    { 'classname': 'good3' },
+                    { 'classname': '센B112' },
+                    { 'classname': '센B113' },
+                    { 'classname': '센B114' },
+                  ]
+        500:
+          description: 데이터를 가져오는 도중 서버에서 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
   /timetable/{classname}:
     get:
       tags:

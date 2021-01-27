@@ -1,6 +1,7 @@
 const express = require('express');
 const {
   getTimetable,
+  getTimetableList,
   postTimetable,
   kakaoTimetable,
   deleteTimetable,
@@ -10,6 +11,8 @@ const { upload } = require('../middleware/upload');
 const { isLoggedIn } = require('../middleware/validation/auth');
 
 const router = express.Router();
+
+router.get('/list', getTimetableList);
 
 router.get('/:classname', getTimetable);
 
