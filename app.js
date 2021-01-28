@@ -8,7 +8,9 @@ const path = require('path');
 const helmet = require('helmet');
 const hpp = require('hpp');
 const session = require('cookie-session');
+const admin = require('firebase-admin');
 const { sequelize } = require('./models');
+const serviceAccount = require('./firebaseSDK.json');
 
 dotenv.config();
 
@@ -27,6 +29,8 @@ const professorRouter = require('./routes/professor');
 const kakaoParamterRouter = require('./routes/kakaoParameter');
 const timetableRouter = require('./routes/timetable');
 const knowledgePlusRouter = require('./routes/knowledgePlus');
+const questionlistRouter = require('./routes/questionlist');
+const questionRouter = require('./routes/question');
 const swaggerDoc = require('./swaggerDoc');
 
 const app = express();
@@ -90,7 +94,13 @@ app.use('/professor', professorRouter);
 app.use('/kakaoParameter', kakaoParamterRouter);
 app.use('/timetable', timetableRouter);
 app.use('/knowledgePlus', knowledgePlusRouter);
+app.use('/questionlist', questionlistRouter);
+app.use('/question', questionRouter);
 app.use(swaggerDoc);
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 
 // 지정된 url이 없을 경우 일로옴
 app.use((req, res, next) => {

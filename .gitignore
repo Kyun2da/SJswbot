@@ -104,3 +104,6 @@ dist
 .tern-port
 
 /uploads
+
+# firebase admin sdk file
+firebaseSdk.json

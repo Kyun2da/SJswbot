@@ -1,0 +1,137 @@
+tags:
+  - name: 학생 질문
+    description: 학생들이 카카오톡을 통해 등록한 질문들에 관한 api 입니다.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /question/{department}:
+    security:
+      - bearerAuth: []
+    get:
+      tags:
+        - 학생 질문
+      summary: 특정 학과에게 한 질문들을 가져옵니다.
+      description: 특정 학과에게 한 질문들을 가져옵니다.
+      parameters:
+        - name: department
+          in: path
+          description: ex) 1, 2 ...  dep api 참조
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: 가져올 페이지 입니다. 0페이지부터 시작합니다. 0페이지라면 0번부터 가져옵니다.
+        - in: query
+          name: size
+          schema:
+            type: integer
+          description: 가져올 아이템의 개수입니다.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: true
+                message: 성공적으로 질문 목록을 가져왔습니다.
+                result:
+                  [
+                    {
+                      'idx': 2,
+                      'content': '내용2',
+                      'createdAt': '2021-01-28T00:00:00.000Z',
+                      'updatedAt': '2021-01-28T00:00:00.000Z',
+                      'department': 1,
+                    },
+                    {
+                      'idx': 3,
+                      'content': '내용3',
+                      'createdAt': '2021-01-28T00:00:00.000Z',
+                      'updatedAt': '2021-01-28T00:00:00.000Z',
+                      'department': 1,
+                    },
+                    {
+                      'idx': 10,
+                      'content': '내용10',
+                      'createdAt': '2021-01-28T00:00:00.000Z',
+                      'updatedAt': '2021-01-28T00:00:00.000Z',
+                      'department': 1,
+                    },
+                  ]
+        500:
+          description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
+  /question/kakao:
+    post:
+      tags:
+        - 학생 질문
+      summary: 카카오톡 전용 api 입니다.
+      description: 카카오톡 학생질문을 등록하기위한 api 입니다.
+      responses:
+        200:
+          description: OK
+          content: {}
+  /question/{id}:
+    security:
+      - bearerAuth: []
+    delete:
+      tags:
+        - 학생 질문
+      summary: 특정 학생 질문을 삭제합니다.
+      description: 특정 학생 질문을 삭제합니다.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: 성공적으로 학생들이 물은 질문을 삭제하였습니다.
+        500:
+          description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
