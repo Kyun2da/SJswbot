@@ -1,0 +1,24 @@
+tags:
+  - name: 카카오 파라미터
+    description: 카카오톡 파라미터 검증을 위한 api 입니다.
+paths:
+  /kakaoParameter/professor:
+    post:
+      tags:
+        - 카카오 파라미터
+      summary: 교수님 이름 카카오 챗봇 파라미터 검증 전용 post
+      description: 카카오 챗봇 전용api입니다.
+      responses:
+        200:
+          description: OK
+          content: {}
+  /kakaoParameter/timetable:
+    post:
+      tags:
+        - 카카오 파라미터
+      summary: 시간표 이름 카카오 챗봇 파라미터 검증 전용 post
+      description: 카카오 챗봇 전용api입니다.
+      responses:
+        200:
+          description: OK
+          content: {}
