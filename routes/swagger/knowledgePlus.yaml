@@ -1,0 +1,309 @@
+tags:
+  - name: 카카오 지식+
+    description: 지식+를 사용하고 관리하기 위한 api 입니다.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /knowledgePlus:
+    get:
+      tags:
+        - 카카오 지식+
+      summary: 전체 knowledgePlus 데이터를 가져옵니다.
+      description: 전체 knowledgePlus 데이터를 가져옵니다.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: 가져올 페이지 입니다. 0페이지부터 시작합니다. 0페이지라면 0번부터 가져옵니다.
+        - in: query
+          name: size
+          schema:
+            type: integer
+          description: 가져올 아이템의 개수입니다.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: object
+              example:
+                success: true
+                message: 성공적으로 교수님 데이터를 가져왔습니다.
+                result:
+                  {
+                    'count': 1,
+                    'rows':
+                      [
+                        {
+                          'faqno': 1,
+                          'category1': '컴퓨터공학과',
+                          'category2': '질문2',
+                          'category3': null,
+                          'category4': null,
+                          'category5': null,
+                          'question': '질문2입니다.',
+                          'questionAnswer': '답변2입니다.',
+                          'landingUrl': null,
+                          'imageinfo': null,
+                          'createdAt': '2021-01-27T15:48:59.000Z',
+                          'updatedAt': '2021-01-27T15:48:59.000Z',
+                          'modifier': 2,
+                          'User': { 'username': 'admin' },
+                        },
+                      ],
+                  }
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - 카카오 지식+
+      summary: 지식 + 데이터를 등록합니다.
+      description: 지식 + 데이터를 등록합니다.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category1:
+                  type: string
+                  required: true
+                category2:
+                  type: string
+                  required: true
+                category3:
+                  type: string
+                category4:
+                  type: string
+                category5:
+                  type: string
+                question:
+                  type: string
+                  required: true
+                questionAnswer:
+                  type: string
+                  required: true
+                landingUrl:
+                  type: string
+                imageinfo:
+                  type: string
+              example: # Sample object
+                category1: 카테고리1
+                category2: 카테고리2
+                category3: 카테고리3
+                category4: 카테고리4
+                category5: 카테고리5
+                question: 질문
+                questionAnswer: 질문답
+                landingUrl: 질문답에대한 링크
+                imageinfo: 이미지정보입니다.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: object
+              example:
+                success: true
+                message: 성공적으로 지식+가 등록되었습니다.
+        400:
+          description: 필수 파라미터 에러입니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        401:
+          description: jwt 토큰 인증 에러입니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 토큰이 타당하지 않습니다.
+        500:
+        description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                message:
+                  type: string
+            example:
+              success: false
+              message: 서버 에러입니다. 관리자에게 문의하세요.
+  /knowledgePlus/kakao:
+    get:
+      tags:
+        - 카카오 지식+
+      summary: 카카오 챗봇 전용 post
+      description: 카카오 챗봇 전용api입니다.
+      responses:
+        200:
+          description: OK
+          content: {}
+  /knowledgePlus/question/{id}:
+    get:
+      tags:
+        - 카카오 지식+
+      summary: 해당 id를 기준으로 특정 knowledgePlus 데이터를 가져옵니다.
+      description: 해당 id를 기준으로 특정 knowledgePlus 데이터를 가져옵니다.
+      parameters:
+        - name: id
+          in: path
+          description: ex) 0,1,2,3,4,5
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                message:
+                  type: string
+                result: object
+            example:
+              success: true
+              message: 성공적으로 특정 지식+를 가져왔습니다.
+              result:
+                {
+                  'faqno': 2,
+                  'category1': '컴퓨터공학과',
+                  'category2': '질문3',
+                  'category3': null,
+                  'category4': null,
+                  'category5': null,
+                  'question': '질문2입니다.',
+                  'questionAnswer': '답변2입니다.',
+                  'landingUrl': null,
+                  'imageinfo': null,
+                  'createdAt': '2021-01-28T05:59:23.000Z',
+                  'updatedAt': '2021-01-28T05:59:23.000Z',
+                  'modifier': 2,
+                }
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - 카카오 지식+
+      summary: 해당 id를 기준으로 knowledgePlus 데이터를 삭제합니다.
+      description: 해당 id를 기준으로 knowledgePlus 데이터를 삭제합니다.
+      parameters:
+        - name: id
+          in: path
+          description: ex) 0,1,2,3,4,5
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                message:
+                  type: string
+                result: object
+            example:
+              success: true
+              message: 성공적으로 지식+ 질문을 삭제하였습니다.
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - 카카오 지식+
+      summary: 해당 id를 기준으로 knowledgePlus 데이터를 수정합니다.
+      description: 해당 id를 기준으로 knowledgePlus 데이터를 수정합니다.
+      parameters:
+        - name: id
+          in: path
+          description: ex) 0,1,2,3,4,5
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category1:
+                  type: string
+                  required: true
+                category2:
+                  type: string
+                  required: true
+                category3:
+                  type: string
+                category4:
+                  type: string
+                category5:
+                  type: string
+                question:
+                  type: string
+                  required: true
+                questionAnswer:
+                  type: string
+                  required: true
+                landingUrl:
+                  type: string
+                imageinfo:
+                  type: string
+              example: # Sample object
+                category1: 카테고리1
+                category2: 카테고리2
+                category3: 카테고리3
+                category4: 카테고리4
+                category5: 카테고리5
+                question: 질문
+                questionAnswer: 질문답
+                landingUrl: 질문답에대한 링크
+                imageinfo: 이미지정보입니다.
+      responses:
+        200:
+          description: OK
+          content: {}

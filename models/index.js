@@ -67,5 +67,6 @@ Timetable.associate(db);
 Notice.associate(db);
 Curriculum.associate(db);
 Status.associate(db);
+KnowledgePlus.associate(db);
 
 module.exports = db;
