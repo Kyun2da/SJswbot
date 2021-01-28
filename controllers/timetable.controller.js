@@ -90,7 +90,6 @@ const putTimetable = async (req, res, next) => {
     await Timetable.update(
       {
         link: `/img/${filename}`,
-        createdAt: sequelize.fn('NOW'),
         updatedAt: sequelize.fn('NOW'),
         modifier: req.userData.sub,
       },
