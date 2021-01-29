@@ -1,4 +1,5 @@
-const { sequelize, Op } = require('sequelize');
+const sequelize,
+  { Op } = require('sequelize');
 const { questionComplete } = require('../lib/kakao/questionTemplate');
 const getPagination = require('../lib/pagination');
 const { Question } = require('../models');
