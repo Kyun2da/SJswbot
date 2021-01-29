@@ -1,4 +1,4 @@
-const sequelize = require('sequelize');
+const { sequelize, Op } = require('sequelize');
 const { questionComplete } = require('../lib/kakao/questionTemplate');
 const getPagination = require('../lib/pagination');
 const { Question } = require('../models');
@@ -10,7 +10,7 @@ const getQuestion = async (req, res, next) => {
     const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size);
     const getQuestionData = await Question.findAll(
-      { where: { department } },
+      { where: { [Op.or]: [{ department }, { department: 11 }] } },
       { offset, limit, order: [['updatedAt', 'DESC']] },
     );
     return res.status(200).send({
