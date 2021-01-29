@@ -4,8 +4,8 @@ module.exports = {
   sendpushMsg: (req, res, next) => {
     let topic;
     switch (req.body.userRequest.utterance) {
-      case '공통 질문':
-        topic = 'software';
+      case '공통':
+        topic = 'public';
         break;
       case '소프트웨어학과':
         topic = 'software';
