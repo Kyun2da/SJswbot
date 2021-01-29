@@ -221,6 +221,7 @@ paths:
                   'updatedAt': '2021-01-28T05:59:23.000Z',
                   'modifier': 2,
                 }
+  /knowledgePlus/{id}:
     delete:
       security:
         - bearerAuth: []
