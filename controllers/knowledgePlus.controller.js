@@ -10,6 +10,7 @@ const getknowledgePlus = async (req, res, next) => {
     const getKnowledgePlusData = await KnowledgePlus.findAndCountAll({
       offset,
       limit,
+      order: [['updatedAt', 'DESC']],
       include: [
         {
           model: User,

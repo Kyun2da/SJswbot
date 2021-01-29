@@ -12,7 +12,11 @@ const getFixRequest = async (req, res, next) => {
   const { limit, offset } = getPagination(page, size);
 
   try {
-    const getFixRequestData = await FixRequest.findAndCountAll({ offset, limit });
+    const getFixRequestData = await FixRequest.findAndCountAll({
+      offset,
+      limit,
+      order: [['updatedAt', 'DESC']],
+    });
     return res.status(200).send({
       success: true,
       message: '성공적으로 수정요청 데이터를 가져왔습니다.',

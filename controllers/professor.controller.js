@@ -11,6 +11,7 @@ const getProfessor = async (req, res, next) => {
     const getProfessorData = await Professor.findAndCountAll({
       offset,
       limit,
+      order: [['updatedAt', 'DESC']],
       include: [
         {
           model: User,

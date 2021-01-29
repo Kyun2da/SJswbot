@@ -12,7 +12,11 @@ const getFallback = async (req, res, next) => {
   const { limit, offset } = getPagination(page, size);
 
   try {
-    const getFallbackData = await Fallback.findAndCountAll({ offset, limit });
+    const getFallbackData = await Fallback.findAndCountAll({
+      offset,
+      limit,
+      order: [['updatedAt', 'DESC']],
+    });
     return res.status(200).send({
       success: true,
       message: '성공적으로 폴백 데이터를 가져왔습니다.',

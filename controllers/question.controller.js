@@ -9,7 +9,10 @@ const getQuestion = async (req, res, next) => {
     const { department } = req.params;
     const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size);
-    const getQuestionData = await Question.findAll({ where: { department } }, { offset, limit });
+    const getQuestionData = await Question.findAll(
+      { where: { department } },
+      { offset, limit, order: [['updatedAt', 'DESC']] },
+    );
     return res.status(200).send({
       success: true,
       message: '성공적으로 질문 목록을 가져왔습니다.',
