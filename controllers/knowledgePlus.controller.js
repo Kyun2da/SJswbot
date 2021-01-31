@@ -79,8 +79,12 @@ const kakaoKnowledgePlus = async (req, res, next) => {
         'imageinfo',
       ],
     });
+    const resultArr2 = [];
+    for (let i = 0; i < resultArr.length; i += 1) {
+      resultArr2.push(Object.values(resultArr[i].dataValues));
+    }
     const responseBody = {
-      values: resultArr,
+      values: resultArr2,
       names: '세종대 챗봇 FAQ',
       schema_type: '1.0',
     };
