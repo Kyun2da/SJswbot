@@ -1,4 +1,5 @@
 const sequelize = require('sequelize');
+const dayjs = require('dayjs');
 const getPagination = require('../lib/pagination');
 const { KnowledgePlus, User } = require('../models');
 
@@ -78,9 +79,26 @@ const kakaoKnowledgePlus = async (req, res, next) => {
         'landingUrl',
         'imageinfo',
       ],
+      include: [
+        {
+          model: User,
+          attributes: ['username'],
+        },
+      ],
     });
     const resultArr2 = [];
+    console.log(resultArr);
     for (let i = 0; i < resultArr.length; i += 1) {
+      const { question, questionAnswer, updatedAt } = resultArr[i].dataValues;
+      resultArr[
+        i
+      ].dataValues.questionAnswer = `[${question}] \n\n ${questionAnswer}\n\n 수정시간 : ${dayjs(
+        updatedAt,
+      ).format('YYYY-MM-DD')} \n 수정한 사람 : ${
+        resultArr[i].dataValues.User.username
+      }\n\n 데이터가 잘못되었다면 데이터 수정요청 ⚠ 버튼을 눌러주세요.(감동)`;
+      console.log(resultArr[i].dataValues);
+      delete resultArr[i].dataValues.User;
       resultArr2.push(Object.values(resultArr[i].dataValues));
     }
     const responseBody = {
