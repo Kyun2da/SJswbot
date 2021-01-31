@@ -44,8 +44,8 @@ module.exports = class EmailVerify extends Sequelize.Model {
         modelName: 'EmailVerify',
         tableName: 'emailverify',
         paranoid: false,
-        charset: 'utf8',
-        collate: 'utf8_general_ci',
+        charset: 'utf8mb4',
+        collate: 'utf8mb4_general_ci',
       },
     );
   }
