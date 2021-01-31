@@ -29,7 +29,7 @@ const kakaoStatus = async (req, res, next) => {
     const { name } = req.body.intent;
     const statusData = await Status.findOne({ where: { department: departmentParser(name) } });
     console.log(statusData);
-    return res.status(200).send(kakaoStatusTemplate(statusData));
+    return res.status(200).send(kakaoStatusTemplate(statusData, name));
   } catch (err) {
     console.error(err);
     return next(err);
