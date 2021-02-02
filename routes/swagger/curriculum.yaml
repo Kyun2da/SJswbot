@@ -87,14 +87,18 @@ paths:
           schema:
             type: string
       requestBody:
+        required: true
         content:
-          multipart/form-data:
+          application/json:
             schema:
               type: object
               properties:
-                img:
+                link:
                   type: string
-                  format: binary
+              required:
+                - link
+              example: # Sample object
+                link: 'https://www.goole.com'
       responses:
         200:
           description: OK
@@ -107,12 +111,9 @@ paths:
                     type: boolean
                   message:
                     type: string
-                  result:
-                    type: object
               example:
                 success: true
                 message: 성공적으로 수정이 완료되었습니다.
-                result: { 'link': '/img/diagram1612246136814.png' }
         400:
           description: curriculum 수정을 위한 requestBody가 하나라도 없다면 400을 반환합니다.
           content:

@@ -4,7 +4,6 @@ const {
   kakaoCurriculum,
   putCurriculum,
 } = require('../controllers/curriculum.controller');
-const { upload } = require('../middleware/upload');
 const { isLoggedIn } = require('../middleware/validation/auth');
 
 const router = express.Router();
@@ -13,6 +12,6 @@ router.get('/:department', getCurriculum);
 
 router.post('/kakao', kakaoCurriculum);
 
-router.put('/:department', isLoggedIn, upload.single('img'), putCurriculum);
+router.put('/:department', isLoggedIn, putCurriculum);
 
 module.exports = router;

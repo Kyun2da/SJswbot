@@ -37,21 +37,17 @@ const kakaoCurriculum = async (req, res, next) => {
 
 const putCurriculum = async (req, res, next) => {
   try {
-    const { filename } = req.file;
     const { department } = req.params;
+    const { link } = req.body;
     await Curriculum.update(
       {
-        link: `/img/${filename}`,
+        link,
         updatedAt: sequelize.fn('NOW'),
         modifier: req.userData.sub,
       },
       { where: { department } },
     );
-    return res.status(200).send({
-      success: true,
-      message: '성공적으로 수정이 완료되었습니다.',
-      result: { link: `/img/${filename}` },
-    });
+    return res.status(200).send({ success: true, message: '성공적으로 수정이 완료되었습니다.' });
   } catch (err) {
     console.error(err);
     return next(err);
