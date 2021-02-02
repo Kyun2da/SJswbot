@@ -31,6 +31,7 @@ const timetableRouter = require('./routes/timetable');
 const knowledgePlusRouter = require('./routes/knowledgePlus');
 const questionlistRouter = require('./routes/questionlist');
 const questionRouter = require('./routes/question');
+const adminRequestRouter = require('./routes/adminRequest');
 const swaggerDoc = require('./swaggerDoc');
 
 const app = express();
@@ -96,6 +97,7 @@ app.use('/timetable', timetableRouter);
 app.use('/knowledgePlus', knowledgePlusRouter);
 app.use('/questionlist', questionlistRouter);
 app.use('/question', questionRouter);
+app.use('/adminRequest', adminRequestRouter);
 app.use(swaggerDoc);
 
 admin.initializeApp({

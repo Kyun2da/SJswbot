@@ -1,0 +1,151 @@
+tags:
+  - name: 관리자에게 요청사항
+    description: 카카오톡 관리자에게 요청사항으로 들어온 데이터를 관리하기 위한 api입니다.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /adminRequest:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - 관리자에게 요청사항
+      summary: 관리자에게 요청사항 블록으로 들어온 데이터를 가져옵니다.
+      description: 관리자에게 요청사항 블록으로 들어온 데이터를 가져옵니다. page * size + 1번 부터 size개 만큼 가져옵니다.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: 가져올 페이지 입니다. 0페이지부터 시작합니다. 0페이지라면 0번부터 가져옵니다.
+        - in: query
+          name: size
+          schema:
+            type: integer
+          description: 가져올 아이템의 개수입니다.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: true
+                message: 성공적으로 관리자에게 요청사항 데이터를 가져왔습니다.
+                result:
+                  {
+                    'count': 31,
+                    'rows':
+                      [
+                        {
+                          'idx': 6,
+                          'question': '6번질문',
+                          'createdAt': '2021-01-20T00:00:00.000Z',
+                          'updatedAt': '2021-01-20T00:00:00.000Z',
+                        },
+                        {
+                          'idx': 7,
+                          'question': '7번질문',
+                          'createdAt': '2021-01-20T00:00:00.000Z',
+                          'updatedAt': '2021-01-20T00:00:00.000Z',
+                        },
+                        {
+                          'idx': 8,
+                          'question': '8번질문',
+                          'createdAt': '2021-01-20T00:00:00.000Z',
+                          'updatedAt': '2021-01-20T00:00:00.000Z',
+                        },
+                        {
+                          'idx': 9,
+                          'question': '9번질문',
+                          'createdAt': '2021-01-20T00:00:00.000Z',
+                          'updatedAt': '2021-01-20T00:00:00.000Z',
+                        },
+                        {
+                          'idx': 10,
+                          'question': '10번질문',
+                          'createdAt': '2021-01-20T00:00:00.000Z',
+                          'updatedAt': '2021-01-20T00:00:00.000Z',
+                        },
+                      ],
+                  }
+        500:
+          description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
+  /adminRequest/{id}:
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - 관리자에게 요청사항
+      summary: 관리자에게 요청사항 블록으로 들어온 특정 데이터를 삭제합니다.
+      description: 관리자에게 요청사항 블록으로 들어온 데이터를 삭제합니다. page * size + 1번 부터 size개 만큼 가져옵니다.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: 지울 인덱스 번호 입니다.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: true
+                message: 성공적으로 삭제되었습니다.
+        500:
+          description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.
+  /adminRequest/kakao:
+    post:
+      tags:
+        - 관리자에게 요청사항
+      summary: 카카오 챗봇 전용 post
+      description: 카카오 챗봇 전용api입니다.
+      responses:
+        200:
+          description: OK
+          content: {}

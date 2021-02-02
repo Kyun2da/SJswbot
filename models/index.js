@@ -14,6 +14,7 @@ const Curriculum = require('./curriculum.db');
 const EmailVerify = require('./emailVerify.db');
 const Status = require('./status.db');
 const FixRequest = require('./fixRequest.db');
+const AdminRequest = require('./adminRequest.db');
 
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
@@ -39,6 +40,7 @@ db.Curriculum = Curriculum;
 db.EmailVerify = EmailVerify;
 db.Status = Status;
 db.FixRequest = FixRequest;
+db.AdminRequest = AdminRequest;
 
 AssistantNotice.init(sequelize);
 Department.init(sequelize);
@@ -55,6 +57,7 @@ Curriculum.init(sequelize);
 EmailVerify.init(sequelize);
 Status.init(sequelize);
 FixRequest.init(sequelize);
+AdminRequest.init(sequelize);
 
 AssistantNotice.associate(db);
 Department.associate(db);
