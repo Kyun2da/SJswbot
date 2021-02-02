@@ -9,9 +9,9 @@ components:
       bearerFormat: JWT
 paths:
   /question/{department}:
-    security:
-      - bearerAuth: []
     get:
+      security:
+        - bearerAuth: []
       tags:
         - 학생 질문
       summary: 특정 학과에게 한 질문들을 가져옵니다.
@@ -99,9 +99,9 @@ paths:
           description: OK
           content: {}
   /question/{id}:
-    security:
-      - bearerAuth: []
     delete:
+      security:
+        - bearerAuth: []
       tags:
         - 학생 질문
       summary: 특정 학생 질문을 삭제합니다.
