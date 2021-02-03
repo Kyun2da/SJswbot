@@ -11,7 +11,7 @@
 
 ## 소개 영상 및 ppt
 
-- [ppt 보러가기](./readmeimg/sjswbotppt)
+- [ppt 보러가기](./readmeimg/sjswbotppt.pptx)
 - [영상 보러가기](https://youtu.be/oy5sd2CRcTk)
 
 
