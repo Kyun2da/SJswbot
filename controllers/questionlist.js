@@ -2,6 +2,8 @@ const { KnowledgePlus } = require('../models');
 
 const getQuestionlist = async (req, res, next) => {
   try {
+    const { name } = req.body.intent;
+    console.log(name);
     const questionData = await KnowledgePlus.findAll();
     let msg = '';
     for (let i = 0; i < questionData.length; i += 1) {
