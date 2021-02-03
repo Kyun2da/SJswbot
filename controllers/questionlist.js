@@ -2,9 +2,8 @@ const { KnowledgePlus } = require('../models');
 
 const getQuestionlist = async (req, res, next) => {
   try {
-    const { name } = req.body.intent;
-    console.log(req.body);
-    const questionData = await KnowledgePlus.findAll();
+    const { utterance } = req.body.userRequest;
+    const questionData = await KnowledgePlus.findAll({ where: { category1: utterance } });
     let msg = '';
     for (let i = 0; i < questionData.length; i += 1) {
       msg += `${i + 1}. ${questionData[i].question}\n\n`;
