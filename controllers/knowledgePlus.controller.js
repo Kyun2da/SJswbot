@@ -35,7 +35,7 @@ const getknowledgePluslist = async (req, res, next) => {
     const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size);
     const { department } = req.params;
-    const getKnowledgePlusListData = await KnowledgePlus.findAll({
+    const getKnowledgePlusListData = await KnowledgePlus.findAndCountAll({
       offset,
       limit,
       order: [['updatedAt', 'DESC']],
