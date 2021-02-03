@@ -1,6 +1,8 @@
 # SJswbot
 세종대 카카오 오픈빌더를 활용한 도와줘 소융봇 시범운영 서버입니다.
 
+![](./readmeimg/swbotlogo.png)
+
 ![](./readmeimg/searchguide_type.png)
 
 ### [링크로 추가하기](http://pf.kakao.com/_sLeuK)
