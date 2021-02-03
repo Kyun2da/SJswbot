@@ -176,6 +176,81 @@ paths:
         200:
           description: OK
           content: {}
+  /knowledgePlus/list/{department}:
+    get:
+      tags:
+        - 카카오 지식+
+      summary: 카카오 챗봇 전용 post
+      description: 카카오 챗봇 전용api입니다.
+      parameters:
+        - name: department
+          in: path
+          description: ex) '컴퓨터공학과' or '소프트웨어학과' 등등 dep api 참조
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: 가져올 페이지 입니다. 0페이지부터 시작합니다. 0페이지라면 0번부터 가져옵니다.
+        - in: query
+          name: size
+          schema:
+            type: integer
+          description: 가져올 아이템의 개수입니다.
+      responses:
+        200:
+          description: Success
+          content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                message:
+                  type: string
+                result:
+                  type: array
+            example:
+              success: true
+              message: '성공적으로 지식+ 리스트를 가져왔습니다.'
+              result:
+                [
+                  {
+                    'faqno': 3,
+                    'category1': '컴퓨터공학과',
+                    'category2': '질문4',
+                    'category3': null,
+                    'category4': null,
+                    'category5': null,
+                    'question': '질문2입니다.',
+                    'questionAnswer': '답변2입니다.',
+                    'landingUrl': null,
+                    'imageinfo': null,
+                    'createdAt': '2021-01-31T09:22:24.000Z',
+                    'updatedAt': '2021-01-31T09:22:24.000Z',
+                    'modifier': 2,
+                    'User': { 'username': 'admin' },
+                  },
+                  {
+                    'faqno': 4,
+                    'category1': '공통',
+                    'category2': '질문5',
+                    'category3': null,
+                    'category4': null,
+                    'category5': null,
+                    'question': '공통질문.',
+                    'questionAnswer': '공통질문답변',
+                    'landingUrl': null,
+                    'imageinfo': null,
+                    'createdAt': '2021-01-31T00:00:00.000Z',
+                    'updatedAt': '2021-01-31T00:00:00.000Z',
+                    'modifier': 2,
+                    'User': { 'username': 'admin' },
+                  },
+                ]
   /knowledgePlus/question/{id}:
     get:
       tags:

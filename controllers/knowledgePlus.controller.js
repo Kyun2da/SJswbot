@@ -32,11 +32,20 @@ const getknowledgePlus = async (req, res, next) => {
 
 const getknowledgePluslist = async (req, res, next) => {
   try {
+    const { page, size } = req.query;
+    const { limit, offset } = getPagination(page, size);
     const { department } = req.params;
     const getKnowledgePlusListData = await KnowledgePlus.findAll({
-      attributes: ['question'],
-      order: [['updatedAt', 'ASC']],
-      where: { category1: department },
+      offset,
+      limit,
+      order: [['updatedAt', 'DESC']],
+      include: [
+        {
+          model: User,
+          attributes: ['username'],
+        },
+      ],
+      where: { [sequelize.Op.or]: [{ category1: department }, { category1: '공통' }] },
     });
     return res.status(200).send({
       success: true,
