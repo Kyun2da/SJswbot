@@ -14,7 +14,11 @@ const enrolltoKakaoKnowledgePlus = async () => {
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
   const page = await browser.newPage();
-
+  await page.setViewport({
+    width: 1920,
+    height: 1080,
+    deviceScaleFactor: 1,
+  });
   // 로그인창 접속
   await page.goto(loginURL, { waitUntil: 'networkidle0' });
   console.log('로그인창 접속 성공');
