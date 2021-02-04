@@ -2,6 +2,7 @@ const sequelize = require('sequelize');
 const dayjs = require('dayjs');
 const getPagination = require('../lib/pagination');
 const { KnowledgePlus, User } = require('../models');
+const { enrolltoKakaoKnowledgePlus } = require('../crawling/knowledgePlusToKakao');
 
 const getknowledgePlus = async (req, res, next) => {
   try {
@@ -149,6 +150,9 @@ const enrollKnowledgePlus = async (req, res, next) => {
       updatedAt: sequelize.fn('NOW'),
       modifier: req.userData.sub,
     });
+    if (process.env.NODE_ENV !== 'development') {
+      enrolltoKakaoKnowledgePlus();
+    }
     return res.status(200).send({ success: true, message: '성공적으로 지식+가 등록되었습니다.' });
   } catch (err) {
     console.error(err);
