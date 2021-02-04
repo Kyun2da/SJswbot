@@ -35,7 +35,7 @@ const enrolltoKakaoKnowledgePlus = async () => {
   await page.click('.ico_bot.ico_check');
   console.log('동기화 버튼 클릭 성공');
   // 저장 버튼 클릭 후 페이지 네비게이션 기다리기
-  await page.click('.btn_g.btn_g2');
+  await page.click('#mArticle > div > div > knowledge-header > div > button');
   console.log('저장 버튼 클릭 성공');
   await page.waitForTimeout(10000);
   // 배포 사이트로 이동
