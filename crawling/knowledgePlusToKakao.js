@@ -12,7 +12,6 @@ const deployURL = 'https://i.kakao.com/openbuilder/bot/5ef87cc02ca48c0001201fb5/
 const enrolltoKakaoKnowledgePlus = async () => {
   const browser = await puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    headless: false,
   });
   const page = await browser.newPage();
 
