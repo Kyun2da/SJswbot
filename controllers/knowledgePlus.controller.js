@@ -164,6 +164,9 @@ const deleteKnowledgePlus = async (req, res, next) => {
   try {
     const { id } = req.params;
     await KnowledgePlus.destroy({ where: { faqno: id } });
+    if (process.env.NODE_ENV !== 'development') {
+      enrolltoKakaoKnowledgePlus();
+    }
     return res
       .status(200)
       .send({ success: true, message: '성공적으로 지식+ 질문을 삭제하였습니다.' });
@@ -204,6 +207,9 @@ const putKnowledgePlus = async (req, res, next) => {
       },
       { where: { faqno: id } },
     );
+    if (process.env.NODE_ENV !== 'development') {
+      enrolltoKakaoKnowledgePlus();
+    }
     return res
       .status(200)
       .send({ success: true, message: '성공적으로 지식+ 질문을 수정하였습니다.' });
