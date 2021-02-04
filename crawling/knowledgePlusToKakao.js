@@ -10,9 +10,7 @@ const knowledgePlusURL = 'https://i.kakao.com/openbuilder/bot/5ef87cc02ca48c0001
 const deployURL = 'https://i.kakao.com/openbuilder/bot/5ef87cc02ca48c0001201fb5/publish';
 
 const enrolltoKakaoKnowledgePlus = async () => {
-  const browser = await puppeteer.launch({
-    defaultViewport: null,
-  });
+  const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
   const page = await browser.newPage();
 
   // 로그인창 접속
