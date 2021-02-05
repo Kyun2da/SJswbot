@@ -3,7 +3,7 @@ const admin = require('firebase-admin');
 module.exports = {
   sendpushMsg: (req, res, next) => {
     let topic;
-    switch (req.body.userRequest.utterance) {
+    switch (req.body.action.params['학과']) {
       case '공통':
         topic = 'public';
         break;
