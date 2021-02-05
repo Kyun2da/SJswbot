@@ -16,6 +16,9 @@ const Sequelize = require('sequelize');
  *           link:
  *            type: text
  *            description: 공지사항의 링크입니다.
+ *           content:
+ *            type: text
+ *            description: 학생들에게 전달할 공지사항의 텍스트입니다.
  *           createdAt:
  *             type: datetime
  *             description: 등록한 시간이 들어갑니다.
@@ -37,6 +40,9 @@ module.exports = class Notice extends Sequelize.Model {
           allowNull: false,
         },
         link: {
+          type: Sequelize.TEXT,
+        },
+        content: {
           type: Sequelize.TEXT,
         },
       },

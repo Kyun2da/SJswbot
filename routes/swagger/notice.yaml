@@ -51,6 +51,7 @@ paths:
                 result:
                   {
                     'idx': 1,
+                    'content': '내용입니다.',
                     'link': 'https://daum.net',
                     'createdAt': '2021-01-21T00:00:00.000Z',
                     'updatedAt': '2021-01-21T13:44:12.000Z',
@@ -95,10 +96,14 @@ paths:
               properties:
                 link:
                   type: string
+                content:
+                  type: string
               required:
                 - link
+                - content
               example: # Sample object
                 link: 'https://www.goole.com'
+                content: '내용입니다.'
       responses:
         200:
           description: OK

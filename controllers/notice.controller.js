@@ -36,10 +36,11 @@ const kakaoNotice = async (req, res, next) => {
 const putNotice = async (req, res, next) => {
   try {
     const { department } = req.params;
-    const { link } = req.body;
+    const { link, content } = req.body;
     await Notice.update(
       {
         link,
+        content,
         updatedAt: sequelize.fn('NOW'),
         modifier: req.userData.sub,
       },
