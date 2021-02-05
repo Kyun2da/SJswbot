@@ -22,3 +22,13 @@ paths:
         200:
           description: OK
           content: {}
+  /kakaoParameter/department:
+    post:
+      tags:
+        - 카카오 파라미터
+      summary: 학과 이름 카카오 챗봇 파라미터 검증 전용 post, 단, 학과이름 중 관리자 공통 은 제외함
+      description: 카카오 챗봇 전용api입니다.
+      responses:
+        200:
+          description: OK
+          content: {}

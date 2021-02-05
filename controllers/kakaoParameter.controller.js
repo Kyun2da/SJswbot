@@ -1,4 +1,4 @@
-const { Professor, Timetable } = require('../models');
+const { Professor, Timetable, Department } = require('../models');
 
 const getParameterProfessor = async (req, res, next) => {
   try {
@@ -43,7 +43,28 @@ const getParameterTimetable = async (req, res, next) => {
   }
 };
 
+const getParameterDepartment = async (req, res, next) => {
+  try {
+    const name = req.body.utterance;
+    const getDepartmentData = await Department.findOne({
+      where: { department: name },
+    });
+    if (getDepartmentData === null || name === '공통' || name === '관리자') {
+      return res.status(200).send({
+        status: 'FAIL',
+      });
+    }
+    return res.status(200).send({
+      status: 'SUCCESS',
+    });
+  } catch (err) {
+    console.error(err);
+    return next(err);
+  }
+};
+
 module.exports = {
   getParameterProfessor,
   getParameterTimetable,
+  getParameterDepartment,
 };
