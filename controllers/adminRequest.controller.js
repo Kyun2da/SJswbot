@@ -1,4 +1,5 @@
 const sequelize = require('sequelize');
+const { kakaoAdminRequestTemplate } = require('../lib/kakao/adminRequestTemplate');
 const {
   kakaoFixRequestTemplate,
   kakaoFixRequestfailEnrollTemplate,
@@ -51,7 +52,7 @@ const kakaoAdminRequest = async (req, res) => {
       updatedAt: sequelize.fn('NOW'),
     });
 
-    return res.status(201).send(kakaoFixRequestTemplate);
+    return res.status(201).send(kakaoAdminRequestTemplate);
   } catch (err) {
     console.error(err);
     return res.status(500).send(kakaoFixRequestfailEnrollTemplate);
