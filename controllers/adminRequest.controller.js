@@ -1,9 +1,6 @@
 const sequelize = require('sequelize');
 const { kakaoAdminRequestTemplate } = require('../lib/kakao/adminRequestTemplate');
-const {
-  kakaoFixRequestTemplate,
-  kakaoFixRequestfailEnrollTemplate,
-} = require('../lib/kakao/fixRequestTemplate');
+const { kakaoFixRequestfailEnrollTemplate } = require('../lib/kakao/fixRequestTemplate');
 const getPagination = require('../lib/pagination');
 const { AdminRequest } = require('../models');
 
