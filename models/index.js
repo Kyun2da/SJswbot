@@ -71,5 +71,6 @@ Notice.associate(db);
 Curriculum.associate(db);
 Status.associate(db);
 KnowledgePlus.associate(db);
+FixRequest.associate(db);
 
 module.exports = db;

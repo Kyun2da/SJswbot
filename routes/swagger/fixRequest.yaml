@@ -8,7 +8,7 @@ components:
       scheme: bearer
       bearerFormat: JWT
 paths:
-  /fixRequest:
+  /fixRequest/{department}:
     get:
       security:
         - bearerAuth: []
@@ -17,6 +17,12 @@ paths:
       summary: 수정요청 블록으로 들어온 데이터를 가져옵니다.
       description: 수정요청 블록으로 들어온 데이터를 가져옵니다. page * size + 1번 부터 size개 만큼 가져옵니다.
       parameters:
+        - in: path
+          name: department
+          description: 가져올 아이템의 학과입니다.
+          required: true
+          schema:
+            type: integer
         - in: query
           name: page
           schema:
@@ -52,30 +58,35 @@ paths:
                         {
                           'idx': 6,
                           'question': '6번질문',
+                          'department': 1,
                           'createdAt': '2021-01-20T00:00:00.000Z',
                           'updatedAt': '2021-01-20T00:00:00.000Z',
                         },
                         {
                           'idx': 7,
                           'question': '7번질문',
+                          'department': 1,
                           'createdAt': '2021-01-20T00:00:00.000Z',
                           'updatedAt': '2021-01-20T00:00:00.000Z',
                         },
                         {
                           'idx': 8,
                           'question': '8번질문',
+                          'department': 1,
                           'createdAt': '2021-01-20T00:00:00.000Z',
                           'updatedAt': '2021-01-20T00:00:00.000Z',
                         },
                         {
                           'idx': 9,
                           'question': '9번질문',
+                          'department': 1,
                           'createdAt': '2021-01-20T00:00:00.000Z',
                           'updatedAt': '2021-01-20T00:00:00.000Z',
                         },
                         {
                           'idx': 10,
                           'question': '10번질문',
+                          'department': 1,
                           'createdAt': '2021-01-20T00:00:00.000Z',
                           'updatedAt': '2021-01-20T00:00:00.000Z',
                         },

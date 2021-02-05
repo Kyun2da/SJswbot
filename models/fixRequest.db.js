@@ -13,6 +13,9 @@ const Sequelize = require('sequelize');
  *           question:
  *             type: text
  *             description: 수정요청 블록의 대화입니다.
+ *           department:
+ *             type: integer
+ *             description : 수정 요청 블록의 해당 학과입니다.
  *           createdAt:
  *             type: datetime
  *             description: 등록한 시간이 들어갑니다.
@@ -46,5 +49,9 @@ module.exports = class FixRequest extends Sequelize.Model {
         collate: 'utf8mb4_general_ci',
       },
     );
+  }
+
+  static associate(db) {
+    db.FixRequest.belongsTo(db.Department, { foreignKey: 'department', targetKey: 'idx' });
   }
 };

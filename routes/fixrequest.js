@@ -9,7 +9,7 @@ const { isLoggedIn } = require('../middleware/validation/auth');
 
 const router = express.Router();
 
-router.get('/', isLoggedIn, getFixRequest);
+router.get('/:department', isLoggedIn, getFixRequest);
 
 router.delete('/:id', isLoggedIn, deleteFixRequest);
 

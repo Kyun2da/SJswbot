@@ -50,5 +50,6 @@ module.exports = class Department extends Sequelize.Model {
     db.Department.hasMany(db.Notice, { foreignKey: 'department', sourceKey: 'idx' });
     db.Department.hasMany(db.Curriculum, { foreignKey: 'department', sourceKey: 'idx' });
     db.Department.hasMany(db.Status, { foreignKey: 'department', sourceKey: 'idx' });
+    db.Department.hasMany(db.FixRequest, { foreignKey: 'department', sourceKey: 'idx' });
   }
 };
