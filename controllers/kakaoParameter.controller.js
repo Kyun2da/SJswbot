@@ -46,6 +46,7 @@ const getParameterTimetable = async (req, res, next) => {
 const getParameterDepartment = async (req, res, next) => {
   try {
     const name = req.body.utterance;
+    console.log(req.body);
     const getDepartmentData = await Department.findOne({
       where: { department: name },
     });
