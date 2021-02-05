@@ -32,3 +32,13 @@ paths:
         200:
           description: OK
           content: {}
+  /kakaoParameter/departmentgongtong:
+    post:
+      tags:
+        - 카카오 파라미터
+      summary: 학과 이름 카카오 챗봇 파라미터 검증 전용 post, 공통 포함
+      description: 카카오 챗봇 전용api입니다.
+      responses:
+        200:
+          description: OK
+          content: {}
