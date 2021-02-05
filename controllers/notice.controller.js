@@ -36,7 +36,7 @@ const kakaoNotice = async (req, res, next) => {
         },
       ],
     });
-    return res.status(200).send(kakaoNoticeTemplate(getNoticeData,req.body.action.params['학과']);
+    return res.status(200).send(kakaoNoticeTemplate(getNoticeData, req.body.action.params['학과']));
   } catch (err) {
     console.error(err);
     return next(err);
