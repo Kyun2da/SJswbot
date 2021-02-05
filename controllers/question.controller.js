@@ -29,7 +29,7 @@ const getQuestion = async (req, res, next) => {
 
 const kakaoQuestion = async (req, res, next) => {
   try {
-    const department = departmentParser(req.body.action.params['학과']);
+    const department = departmentParser(req.body.userRequest.utterance);
     const content = req.body.action.params['질문'];
     await Question.create({
       content,
