@@ -10,7 +10,6 @@ const { FixRequest } = require('../models');
 const getFixRequest = async (req, res, next) => {
   const { page, size } = req.query;
   const { department } = req.params;
-  console.log(department);
   const { limit, offset } = getPagination(page, size);
 
   try {
@@ -18,7 +17,7 @@ const getFixRequest = async (req, res, next) => {
       offset,
       limit,
       order: [['updatedAt', 'DESC']],
-      where: { department },
+      where: { [sequelize.Op.or]: [{ department }, { department: 11 }] },
     });
     return res.status(200).send({
       success: true,
