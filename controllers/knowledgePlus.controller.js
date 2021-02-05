@@ -99,10 +99,10 @@ const kakaoKnowledgePlus = async (req, res, next) => {
     const resultArr2 = [];
     console.log(resultArr);
     for (let i = 0; i < resultArr.length; i += 1) {
-      const { question, questionAnswer, updatedAt } = resultArr[i].dataValues;
+      const { category1, category2, question, questionAnswer, updatedAt } = resultArr[i].dataValues;
       resultArr[
         i
-      ].dataValues.questionAnswer = `[${question}] \n\n ${questionAnswer}\n\n 수정시간 : ${dayjs(
+      ].dataValues.questionAnswer = `[카테고리] ${category1} > ${category2}\n[${question}] \n\n ${questionAnswer}\n\n 수정시간 : ${dayjs(
         updatedAt,
       ).format('YYYY-MM-DD')} \n 수정한 사람 : ${
         resultArr[i].dataValues.User.username
