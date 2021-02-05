@@ -1,5 +1,6 @@
 const sequelize = require('sequelize');
 const { kakaoNoticeTemplate } = require('../lib/kakao/noticeTemplate');
+const { departmentParser } = require('../lib/kakaoDepartmentParser');
 const { Notice, User } = require('../models');
 
 const getNotice = async (req, res, next) => {
@@ -25,7 +26,16 @@ const getNotice = async (req, res, next) => {
 
 const kakaoNotice = async (req, res, next) => {
   try {
-    const getNoticeData = await Notice.findAll({});
+    const department = departmentParser(req.body.action.params['학과']);
+    const getNoticeData = await Notice.findOne({
+      where: { department },
+      include: [
+        {
+          model: User,
+          attributes: ['username'],
+        },
+      ],
+    });
     return res.status(200).send(kakaoNoticeTemplate(getNoticeData));
   } catch (err) {
     console.error(err);
