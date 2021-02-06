@@ -5,7 +5,8 @@ module.exports = {
       script: './server.js',
       autorestart: true,
       watch: true,
-      instances: 0,
+      instances: 'max',
+      ignore_watch: ['node_modules', 'uploads'],
       exec_mode: 'cluster',
       env: {
         NODE_ENV: 'development',
