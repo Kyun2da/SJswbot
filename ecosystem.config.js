@@ -5,7 +5,7 @@ module.exports = {
       script: './server.js',
       autorestart: true,
       watch: true,
-      ignore_watch: ['uploads/*'],
+      ignore_watch: ['uploads'],
       watch_options: {
         followSymlinks: false,
       },
