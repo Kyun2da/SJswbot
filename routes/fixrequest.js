@@ -4,6 +4,7 @@ const {
   deleteFixRequest,
   kakaoFixRequest,
 } = require('../controllers/fixRequest.controller');
+const { sendpushMsg } = require('../middleware/sendPushMsg');
 
 const { isLoggedIn } = require('../middleware/validation/auth');
 
@@ -13,6 +14,6 @@ router.get('/:department', isLoggedIn, getFixRequest);
 
 router.delete('/:id', isLoggedIn, deleteFixRequest);
 
-router.post('/kakao', kakaoFixRequest);
+router.post('/kakao', sendpushMsg, kakaoFixRequest);
 
 module.exports = router;
