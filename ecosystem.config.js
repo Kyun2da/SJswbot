@@ -5,6 +5,7 @@ module.exports = {
       script: './server.js',
       autorestart: true,
       watch: true,
+      ignore_watch: ['uploads'],
       instances: 0,
       exec_mode: 'cluster',
       env: {
