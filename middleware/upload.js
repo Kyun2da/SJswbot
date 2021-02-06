@@ -1,5 +1,4 @@
 const multer = require('multer');
-const path = require('path');
 const fs = require('fs');
 
 try {
@@ -15,9 +14,7 @@ const upload = multer({
       cb(null, 'uploads/');
     },
     filename(req, file, cb) {
-      const ext = path.extname(file.originalname);
-      console.log(ext);
-      cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+      cb(null, `${req.params.classname}.png`);
     },
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
