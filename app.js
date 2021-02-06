@@ -47,7 +47,7 @@ sequelize
     console.log('데이터베이스 연결 성공');
   })
   .catch((err) => {
-    console.log(err);
+    console.error(err);
   });
 
 // morgan 설정

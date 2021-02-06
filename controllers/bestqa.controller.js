@@ -26,7 +26,6 @@ const getBestqa = async (req, res, next) => {
 
 const getParticularBestqa = async (req, res, next) => {
   const idx = req.params.id;
-  console.log(idx);
   try {
     const bestqa = await Bestqa.findOne({
       where: { idx },
@@ -70,7 +69,6 @@ const kakaoBestqa = async (req, res, next) => {
 const putBestqa = async (req, res, next) => {
   const { id } = req.params;
   const { question } = req.body;
-  console.log(id);
   try {
     const bestqa = await Bestqa.update(
       {

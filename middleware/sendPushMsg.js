@@ -56,7 +56,7 @@ module.exports = {
         console.log('성공적으로 메시지를 보냈습니다.', response);
       })
       .catch((error) => {
-        console.log('메시지 에러입니다.', error);
+        console.error('메시지 에러입니다.', error);
       });
     return next();
   },

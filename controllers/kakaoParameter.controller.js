@@ -2,13 +2,10 @@ const { Professor, Timetable, Department } = require('../models');
 
 const getParameterProfessor = async (req, res, next) => {
   try {
-    console.log(req.body.utterance);
     const name = req.body.utterance;
-    console.log(name);
     const getProfessorData = await Professor.findOne({
       where: { name },
     });
-    console.log(getProfessorData);
     if (getProfessorData === null) {
       return res.status(200).send({
         status: 'FAIL',

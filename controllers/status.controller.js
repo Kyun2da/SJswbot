@@ -28,7 +28,6 @@ const kakaoStatus = async (req, res, next) => {
   try {
     const name = req.body.action.params['학과'];
     const statusData = await Status.findOne({ where: { department: departmentParser(name) } });
-    console.log(statusData);
     return res.status(200).send(kakaoStatusTemplate(statusData, name));
   } catch (err) {
     console.error(err);
@@ -39,7 +38,6 @@ const kakaoStatus = async (req, res, next) => {
 const putStatus = async (req, res, next) => {
   try {
     const { department } = req.params;
-    console.log(department);
     const { status, comment, position, phoneNumber } = req.body;
     await Status.update(
       {

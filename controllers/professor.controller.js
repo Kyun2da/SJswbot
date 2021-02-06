@@ -82,7 +82,6 @@ const kakaoProfessor = async (req, res, next) => {
         },
       ],
     });
-    console.log(professorData);
     return res.status(200).send(kakaoProfessorTemplate(professorData));
   } catch (err) {
     console.error(err);

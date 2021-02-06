@@ -9,8 +9,7 @@ const sendEmail = async (req, res, next) => {
   let emailTemplete;
   res.render('../views/email.ejs', { authCode: rand }, (err, data) => {
     if (err) {
-      console.log(err);
-      console.log('ejs.renderFile err');
+      console.error(err);
     }
     emailTemplete = data;
   });
@@ -22,7 +21,6 @@ const sendEmail = async (req, res, next) => {
   });
   if (existEmail) {
     try {
-      console.log('이메일이 존재합니다.');
       await EmailVerify.update(
         {
           number: rand,
@@ -54,7 +52,6 @@ const sendEmail = async (req, res, next) => {
       },
     });
     await smtpTransport.sendMail(mailOptions(req.body.to, emailTemplete));
-    console.log('메시지를 보냈습니다.');
     return res.status(201).send({ success: true, message: '성공적으로 메시지를 보냈습니다.' });
   } catch (err) {
     console.error(err);
@@ -71,7 +68,6 @@ const verifyEmail = async (req, res, next) => {
       },
     });
     if (existEmail) {
-      console.log(existEmail.number);
       if (existEmail.number === authNumber) {
         await EmailVerify.destroy({
           where: {

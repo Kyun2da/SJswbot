@@ -97,7 +97,6 @@ const kakaoKnowledgePlus = async (req, res, next) => {
       ],
     });
     const resultArr2 = [];
-    console.log(resultArr);
     for (let i = 0; i < resultArr.length; i += 1) {
       const { category1, category2, question, questionAnswer, updatedAt } = resultArr[i].dataValues;
       resultArr[
@@ -107,7 +106,6 @@ const kakaoKnowledgePlus = async (req, res, next) => {
       ).format('YYYY-MM-DD')}, ${
         resultArr[i].dataValues.User.username
       })\n\n 데이터가 잘못되었다면 데이터 수정요청 ⚠ 버튼을 눌러주세요.(감동)`;
-      console.log(resultArr[i].dataValues);
       delete resultArr[i].dataValues.User;
       resultArr2.push(Object.values(resultArr[i].dataValues));
     }
