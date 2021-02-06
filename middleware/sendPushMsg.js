@@ -42,10 +42,14 @@ module.exports = {
         break;
     }
     // req.body.userRequest.utterance
+    const content = req.body.actions.params['질문'] || req.body.action.params['수정요청'];
     const fcmMsg = {
       data: {
-        title: '소융봇에 새로운 질문이 등록되었습니다!',
-        body: req.body.action.params['질문'],
+        title:
+          req.body.actions.params['질문'] !== undefined
+            ? '소융봇에 새로운 질문이 등록되었습니다!'
+            : '소융봇에 새로운 수정요청 사항이 등록되었습니다!',
+        body: content,
       },
       topic,
     };

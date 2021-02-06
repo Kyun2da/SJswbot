@@ -45,7 +45,7 @@ const deleteFixRequest = async (req, res, next) => {
 
 const kakaoFixRequest = async (req, res) => {
   const department = departmentParser(req.body.userRequest.utterance);
-  const content = req.body.action.params['질문'];
+  const content = req.body.action.params['수정요청'];
 
   try {
     await FixRequest.create({
