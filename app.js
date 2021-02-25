@@ -32,6 +32,7 @@ const knowledgePlusRouter = require('./routes/knowledgePlus');
 const questionlistRouter = require('./routes/questionlist');
 const questionRouter = require('./routes/question');
 const adminRequestRouter = require('./routes/adminRequest');
+const adminRouter = require('./routes/admin');
 const swaggerDoc = require('./swaggerDoc');
 
 const app = express();
@@ -98,6 +99,7 @@ app.use('/knowledgePlus', knowledgePlusRouter);
 app.use('/questionlist', questionlistRouter);
 app.use('/question', questionRouter);
 app.use('/adminRequest', adminRequestRouter);
+app.use('/admin', adminRouter);
 app.use(swaggerDoc);
 
 admin.initializeApp({

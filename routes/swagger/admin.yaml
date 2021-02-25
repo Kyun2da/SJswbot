@@ -1,0 +1,57 @@
+tags:
+  - name: 관리자페이지용
+    description: 관리자가 좀더 소융봇 정보를 한눈에 확인하기 위해 만들어둔 api 입니다.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /admin/user:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - 관리자페이지용
+      summary: 가입한 유저가 각 학과별로 몇명인지 보여줍니다. 관리자 계정만 이 api에 접근이 가능합니다.
+      description: 단, 학과별 관리자는 숫자 카운팅에서 제외합니다. 응답의 학과별 인덱스는 department api를 참조해주세요.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: array
+              example:
+                success: true
+                message: 성공적으로 학과별 유저 숫자를 가져왔습니다.
+                result:
+                  [
+                    { 'department': 2, 'count': 2 },
+                    { 'department': 1, 'count': 1 },
+                    { 'department': 3, 'count': 1 },
+                    { 'department': 4, 'count': 1 },
+                    { 'department': 6, 'count': 1 },
+                  ]
+        500:
+          description: 데이터를 가져오는 도중 에러가 난다면 500을 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: 서버 에러입니다. 관리자에게 문의하세요.

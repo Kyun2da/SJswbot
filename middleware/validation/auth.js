@@ -1,5 +1,7 @@
 const { body } = require('express-validator');
 const jwt = require('jsonwebtoken');
+const Sequelize = require('sequelize');
+const { User } = require('../../models');
 
 const signUpValidationRules = [
   body('userid').exists(),
@@ -23,6 +25,24 @@ module.exports = {
       return next();
     } catch (err) {
       return res.status(401).send({ success: false, msg: '토큰이 타당하지 않습니다.' });
+    }
+  },
+  isAdmin: async (req, res, next) => {
+    try {
+      const existUser = await User.findOne({
+        where: {
+          idx: Sequelize.fn('lower', req.userData.sub),
+        },
+      });
+      if (existUser.role !== 1) {
+        return res
+          .status(401)
+          .send({ success: false, msg: '관리자가 아닌 사용자는 접근할 수 없습니다.' });
+      }
+      return next();
+    } catch (err) {
+      console.error(err);
+      return next(err);
     }
   },
 };
